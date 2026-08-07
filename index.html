@@ -1,0 +1,1190 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OZONICA DE COLOMBIA S.A.S. - Tarjeta Digital Interactiva</title>
+    <!-- Font Awesome para Iconos profesionales -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Poppins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* ==========================================================================
+           VARIABLES Y CONFIGURACIÓN GLOBAL (COLORES CORPORATIVOS OFICIALES)
+           ========================================================================== */
+        :root {
+            --primary: #2E56B2;       /* Azul principal */
+            --dark-blue: #24479C;   /* Azul oscuro */
+            --green: #78BE43;       /* Verde */
+            --orange: #F28A4A;      /* Naranja */
+            --sky: #6CC8E8;         /* Celeste */
+            --white: #FFFFFF;       /* Blanco */
+            --background: #F5F7FA;
+            --text: #263238;
+            --gray-light: #F8FAFC;
+            --gray-border: #E2E8F0;
+            --shadow: 0 10px 25px -5px rgba(46, 86, 178, 0.12), 0 8px 10px -6px rgba(46, 86, 178, 0.08);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0;
+        }
+
+        @media (min-width: 640px) {
+            body {
+                padding: 24px;
+            }
+        }
+
+        /* ==========================================================================
+           CONTENEDOR PRINCIPAL (ESTILO APP MÓVIL / PWA)
+           ========================================================================== */
+        .app-container {
+            width: 100%;
+            max-width: 420px;
+            background: var(--white);
+            min-height: 100vh;
+            box-shadow: var(--shadow);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @media (min-width: 640px) {
+            .app-container {
+                min-height: 88vh;
+                border-radius: 32px;
+                border: 1px solid rgba(255, 255, 255, 0.6);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ==========================================================================
+           ENCABEZADO Y PERFIL
+           ========================================================================== */
+        .header-section {
+            position: relative;
+            background: var(--gray-light);
+        }
+
+        .banner-container {
+            width: 100%;
+            height: 170px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .banner-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .banner-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.35), transparent);
+        }
+
+        .profile-container {
+            padding: 0 20px 20px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            background: var(--white);
+            border-bottom: 1px solid var(--gray-border);
+        }
+
+        .avatar-wrapper {
+            margin-top: -55px;
+            margin-bottom: 12px;
+            position: relative;
+            animation: bounceIn 0.6s ease-out;
+        }
+
+        @keyframes bounceIn {
+            0% { transform: scale(0.7); opacity: 0; }
+            70% { transform: scale(1.05); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .avatar-img {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            border: 4px solid var(--primary);
+            object-fit: cover;
+            background: var(--white);
+            box-shadow: 0 6px 16px rgba(46, 86, 178, 0.2);
+        }
+
+        .verified-badge {
+            position: absolute;
+            bottom: 4px;
+            right: 4px;
+            background: var(--green);
+            color: var(--white);
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            border: 2px solid var(--white);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .company-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--primary);
+            letter-spacing: -0.3px;
+        }
+
+        .company-desc {
+            font-size: 11px;
+            color: #64748b;
+            margin-top: 6px;
+            line-height: 1.5;
+            padding: 0 10px;
+        }
+
+        /* ==========================================================================
+           BOTONES PRINCIPALES
+           ========================================================================== */
+        .main-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            padding: 20px;
+            background: #fafafa;
+        }
+
+        .btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 16px;
+            border-radius: 16px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: var(--transition);
+            border: none;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.04);
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background: var(--dark-blue);
+            transform: translateY(-1px);
+        }
+
+        .btn-success {
+            background: var(--green);
+            color: var(--white);
+        }
+
+        .btn-success:hover {
+            background: #6ba639;
+            transform: translateY(-1px);
+        }
+
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 0 0 rgba(120, 190, 67, 0.4); }
+            70% { box-shadow: 0 0 0 12px rgba(120, 190, 67, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(120, 190, 67, 0); }
+        }
+
+        .pulse-effect {
+            animation: pulseGlow 2s infinite;
+        }
+
+        /* ==========================================================================
+           ACCESOS RÁPIDOS (GRID)
+           ========================================================================== */
+        .quick-access-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            padding: 10px 20px 20px 20px;
+        }
+
+        .quick-card {
+            background: var(--white);
+            border: 1px solid var(--gray-border);
+            border-radius: 18px;
+            padding: 14px 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: var(--transition);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+
+        .quick-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 16px rgba(46, 86, 178, 0.08);
+            border-color: rgba(46, 86, 178, 0.3);
+        }
+
+        .quick-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            transition: var(--transition);
+        }
+
+        .catalog-icon { background: rgba(46, 86, 178, 0.1); color: var(--primary); }
+        .web-icon { background: rgba(108, 200, 232, 0.15); color: #0284c7; }
+        .wa-icon { background: rgba(120, 190, 67, 0.1); color: var(--green); }
+        .save-icon { background: rgba(242, 138, 74, 0.1); color: var(--orange); }
+        .share-icon { background: rgba(147, 51, 234, 0.1); color: #9333ea; }
+        .qr-icon { background: rgba(217, 119, 6, 0.1); color: #d97706; }
+
+        .quick-card span {
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--text);
+        }
+
+        /* ==========================================================================
+           TARJETA DESTACADA INFERIOR
+           ========================================================================== */
+        .featured-footer-card {
+            margin: 0 20px 20px 20px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--dark-blue) 100%);
+            border-radius: 20px;
+            padding: 16px;
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: var(--shadow);
+        }
+
+        .badge-tag {
+            background: var(--green);
+            color: var(--white);
+            font-size: 9px;
+            font-weight: 700;
+            padding: 3px 9px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .featured-info h3 {
+            font-size: 15px;
+            font-weight: 700;
+            margin-top: 4px;
+        }
+
+        .featured-info p {
+            font-size: 11px;
+            opacity: 0.85;
+        }
+
+        .btn-white {
+            background: var(--white);
+            color: var(--primary);
+            border: none;
+            padding: 8px 14px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .btn-white:hover {
+            background: var(--gray-light);
+            transform: scale(1.03);
+        }
+
+        /* ==========================================================================
+           PIE DE PÁGINA
+           ========================================================================== */
+        .app-footer {
+            padding: 14px;
+            text-align: center;
+            background: var(--gray-light);
+            font-size: 11px;
+            color: #64748b;
+            border-top: 1px solid var(--gray-border);
+            margin-top: auto;
+        }
+
+        /* ==========================================================================
+           VENTANAS MODALES Y POP-UPS (GLASSMORPHISM)
+           ========================================================================== */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            z-index: 1000;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+        }
+
+        @media (min-width: 640px) {
+            .modal-overlay {
+                align-items: center;
+                padding: 20px;
+            }
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-container {
+            background: var(--white);
+            width: 100%;
+            max-width: 420px;
+            max-height: 88vh;
+            border-radius: 28px 28px 0 0;
+            padding: 24px;
+            overflow-y: auto;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            transform: translateY(100%);
+            transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            flex-direction: column;
+        }
+
+        @media (min-width: 640px) {
+            .modal-container {
+                border-radius: 28px;
+                max-height: 85vh;
+            }
+        }
+
+        .modal-overlay.active .modal-container {
+            transform: translateY(0);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--gray-border);
+        }
+
+        .modal-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .modal-close {
+            background: var(--gray-light);
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #64748b;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .modal-close:hover {
+            background: var(--gray-border);
+            color: var(--text);
+        }
+
+        /* ==========================================================================
+           ESTILOS INTERNOS DE CATÁLOGO Y FICHAS TÉCNICAS
+           ========================================================================== */
+        .products-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .product-card-item {
+            background: var(--gray-light);
+            border: 1px solid var(--gray-border);
+            border-radius: 20px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .product-img-box {
+            width: 100%;
+            height: 180px;
+            background: var(--white);
+            border-radius: 14px;
+            overflow: hidden;
+            border: 1px solid var(--gray-border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px;
+        }
+
+        .product-img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .product-info-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .product-name {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        .product-price {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .product-desc {
+            font-size: 11px;
+            color: #64748b;
+            line-height: 1.4;
+        }
+
+        .product-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-top: 4px;
+        }
+
+        .btn-outline {
+            background: var(--white);
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            padding: 8px 12px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            text-align: center;
+        }
+
+        .btn-outline:hover {
+            background: rgba(46, 86, 178, 0.05);
+        }
+
+        /* Formulario de Pedidos */
+        .form-group {
+            margin-bottom: 12px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 11px;
+            font-weight: 600;
+            color: #475569;
+            margin-bottom: 4px;
+        }
+
+        .form-input, .form-textarea {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid var(--gray-border);
+            border-radius: 12px;
+            font-size: 12px;
+            background: var(--gray-light);
+            color: var(--text);
+            outline: none;
+            transition: var(--transition);
+        }
+
+        .form-input:focus, .form-textarea:focus {
+            border-color: var(--primary);
+            background: var(--white);
+            box-shadow: 0 0 0 3px rgba(46, 86, 178, 0.1);
+        }
+
+        .form-textarea {
+            resize: none;
+            height: 65px;
+        }
+
+        .order-summary-box {
+            border: 1px solid var(--gray-border);
+            border-radius: 14px;
+            overflow: hidden;
+            margin: 12px 0;
+            background: var(--white);
+        }
+
+        .order-summary-header {
+            background: var(--gray-light);
+            padding: 8px 12px;
+            font-size: 11px;
+            font-weight: 700;
+            color: #475569;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--gray-border);
+        }
+
+        .order-summary-body {
+            padding: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .qty-controls {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border: 1px solid var(--gray-border);
+            border-radius: 10px;
+            padding: 2px 8px;
+            background: var(--gray-light);
+        }
+
+        .qty-btn {
+            background: none;
+            border: none;
+            font-weight: 700;
+            color: #64748b;
+            cursor: pointer;
+            font-size: 13px;
+            padding: 2px 4px;
+        }
+
+        .qty-btn:hover {
+            color: var(--primary);
+        }
+
+        .qty-value {
+            font-size: 12px;
+            font-weight: 700;
+            width: 16px;
+            text-align: center;
+        }
+
+        .alert-box {
+            background: #fffbeb;
+            border: 1px solid #fef3c7;
+            padding: 10px;
+            border-radius: 12px;
+            margin-bottom: 14px;
+        }
+
+        .alert-text {
+            font-size: 10px;
+            color: #b45309;
+            line-height: 1.4;
+            display: flex;
+            gap: 6px;
+        }
+
+        /* Especificaciones en Ficha Técnica */
+        .specs-list {
+            background: var(--gray-light);
+            border-radius: 14px;
+            padding: 12px;
+            border: 1px solid var(--gray-border);
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .spec-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+        }
+
+        .spec-label {
+            color: #64748b;
+        }
+
+        .spec-val {
+            font-weight: 600;
+            color: var(--text);
+            text-align: right;
+        }
+
+        /* Notificación Toast */
+        .toast {
+            position: fixed;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: rgba(15, 23, 42, 0.92);
+            color: var(--white);
+            font-size: 12px;
+            padding: 10px 18px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            z-index: 2000;
+            opacity: 0;
+            transition: var(--transition);
+            backdrop-filter: blur(4px);
+        }
+
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- CONTENEDOR DE LA APLICACIÓN -->
+    <main class="app-container">
+        
+        <!-- ENCABEZADO Y BANNER -->
+        <header class="header-section">
+            <div class="banner-container">
+                <img id="companyBanner" src="" alt="Banner Ozonica" class="banner-img">
+                <div class="banner-overlay"></div>
+            </div>
+            <div class="profile-container">
+                <div class="avatar-wrapper">
+                    <img id="companyAvatar" src="" alt="Logo Ozonica" class="avatar-img">
+                    <span class="verified-badge" title="Verificado"><i class="fa-solid fa-check"></i></span>
+                </div>
+                <h1 id="companyName" class="company-title">OZONICA DE COLOMBIA S.A.S.</h1>
+                <p id="companyDescription" class="company-desc">
+                    Purificadores electrónicos para agua a base de ozono (domésticos e industriales), purificadores convencionales y baterías de cocina en acero inoxidable Línea Classica.
+                </p>
+            </div>
+        </header>
+
+        <!-- BOTONES PRINCIPALES -->
+        <section class="main-actions">
+            <a id="btnCall" href="#" class="btn btn-primary">
+                <i class="fa-solid fa-phone-volume"></i> Llamar
+            </a>
+            <button id="btnOrderMain" class="btn btn-success pulse-effect">
+                <i class="fa-solid fa-cart-shopping"></i> Realizar pedido
+            </button>
+        </section>
+
+        <!-- ACCESOS RÁPIDOS -->
+        <section class="quick-access-grid">
+            <button id="btnCatalog" class="quick-card">
+                <div class="quick-icon catalog-icon"><i class="fa-solid fa-book-open"></i></div>
+                <span>Catálogo</span>
+            </button>
+            <a id="btnWebsite" href="#" target="_blank" class="quick-card">
+                <div class="quick-icon web-icon"><i class="fa-solid fa-globe"></i></div>
+                <span>Sitio web</span>
+            </a>
+            <a id="btnWhatsApp" href="#" target="_blank" class="quick-card">
+                <div class="quick-icon wa-icon"><i class="fa-brands fa-whatsapp"></i></div>
+                <span>WhatsApp</span>
+            </a>
+            <button id="btnSave" class="quick-card">
+                <div class="quick-icon save-icon"><i class="fa-solid fa-user-plus"></i></div>
+                <span>Guardar</span>
+            </button>
+            <button id="btnShare" class="quick-card">
+                <div class="quick-icon share-icon"><i class="fa-solid fa-share-nodes"></i></div>
+                <span>Compartir</span>
+            </button>
+            <button id="btnQR" class="quick-card">
+                <div class="quick-icon qr-icon"><i class="fa-solid fa-qrcode"></i></div>
+                <span>Código QR</span>
+            </button>
+        </section>
+
+        <!-- TARJETA DESTACADA INFERIOR -->
+        <section class="featured-footer-card">
+            <div class="featured-info">
+                <span class="badge-tag">Destacado</span>
+                <h3 id="featuredTitle">Diozon 9000</h3>
+                <p>Tecnología avanzada de ozono</p>
+            </div>
+            <button id="btnFeaturedMore" class="btn-white">Ver más</button>
+        </section>
+
+        <!-- PIE DE PÁGINA -->
+        <footer class="app-footer">
+            <p>© 2026 OZONICA DE COLOMBIA S.A.S. • Tarjeta Link</p>
+        </footer>
+    </main>
+
+    <!-- ================= MODALES Y POP-UPS ================= -->
+
+    <!-- MODAL CATÁLOGO -->
+    <div id="catalogModal" class="modal-overlay">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h2 class="modal-title"><i class="fa-solid fa-book-open"></i> Catálogo de Productos</h2>
+                <button id="closeCatalog" class="modal-close"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div id="catalogProductsGrid" class="products-grid">
+                <!-- Se inyecta dinámicamente desde JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL FICHA TÉCNICA -->
+    <div id="techModal" class="modal-overlay">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h2 class="modal-title"><i class="fa-solid fa-file-lines"></i> Ficha Técnica</h2>
+                <button id="closeTech" class="modal-close"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div id="techContentDetails">
+                <!-- Se inyecta dinámicamente desde JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL FORMULARIO DE PEDIDOS -->
+    <div id="orderModal" class="modal-overlay">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h2 class="modal-title"><i class="fa-solid fa-cart-shopping"></i> Realizar Pedido</h2>
+                <button id="closeOrder" class="modal-close"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <form id="orderForm">
+                <div class="form-group">
+                    <label class="form-label" for="clientName">Nombre Completo *</label>
+                    <input type="text" id="clientName" required class="form-input" placeholder="Ej. Carlos Pérez">
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="clientPhone">Teléfono / WhatsApp *</label>
+                    <input type="tel" id="clientPhone" required class="form-input" placeholder="Ej. 3101234567">
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="clientAddress">Dirección de Entrega *</label>
+                    <input type="text" id="clientAddress" required class="form-input" placeholder="Ej. Calle 50 # 20-30">
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="clientNeighborhood">Barrio (Opcional)</label>
+                    <input type="text" id="clientNeighborhood" class="form-input" placeholder="Ej. El Poblado">
+                </div>
+
+                <!-- Acordeón / Tarjeta del Producto Seleccionado -->
+                <div class="order-summary-box">
+                    <div class="order-summary-header">
+                        <span>Productos Seleccionados</span>
+                        <span style="background:var(--primary); color:var(--white); padding:1px 8px; border-radius:10px; font-size:9px;">Activo</span>
+                    </div>
+                    <div class="order-summary-body">
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <img id="summaryProductImg" src="" alt="Producto" style="width: 40px; height: 40px; object-fit: contain; background: #fff; border-radius: 8px; border: 1px solid var(--gray-border);">
+                            <div>
+                                <p id="summaryProductName" style="font-size:12px; font-weight:700; color:var(--text);">Diozon 9000</p>
+                                <p id="summaryProductPrice" style="font-size:11px; color:var(--primary); font-weight:600;">$450.000 COP</p>
+                            </div>
+                        </div>
+                        <div class="qty-controls">
+                            <button type="button" id="qtyMinus" class="qty-btn">-</button>
+                            <span id="qtyValue" class="qty-value">1</span>
+                            <button type="button" id="qtyPlus" class="qty-btn">+</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="clientNotes">Observaciones</label>
+                    <textarea id="clientNotes" class="form-textarea" placeholder="Instrucciones especiales de entrega..."></textarea>
+                </div>
+
+                <div class="alert-box">
+                    <div class="alert-text">
+                        <i class="fa-solid fa-circle-info" style="font-size:12px; margin-top:1px;"></i>
+                        <span>El valor total del pedido será calculado por el Departamento de Ventas una vez sea recibido, incluyendo el costo del domicilio según la ubicación.</span>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-success" style="width: 100%;">
+                    <i class="fa-brands fa-whatsapp" style="font-size:16px;"></i> Enviar pedido por WhatsApp
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL CÓDIGO QR -->
+    <div id="qrModal" class="modal-overlay">
+        <div class="modal-container" style="max-width: 320px; text-align: center; border-radius: 28px;">
+            <div class="modal-header">
+                <h3 class="modal-title">Código QR Tarjeta</h3>
+                <button id="closeQR" class="modal-close"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div style="background:var(--gray-light); padding:16px; border-radius:18px; border:1px solid var(--gray-border); display:flex; justify-content:center; margin-bottom:14px;">
+                <img id="qrImageImg" src="" alt="Código QR" style="width: 190px; height: 190px; object-fit: contain;">
+            </div>
+            <p style="font-size: 11px; color: #64748b; margin-bottom: 14px;">Escanea este código para compartir la tarjeta digital instantáneamente.</p>
+            <button id="btnCloseQRBtn" class="btn btn-primary" style="width: 100%;">Cerrar</button>
+        </div>
+    </div>
+
+    <!-- NOTIFICACIÓN TOAST -->
+    <div id="toastNotification" class="toast">Notificación</div>
+
+    <!-- ================= LÓGICA JAVASCRIPT (VANILLA ES6) ================= -->
+    <script>
+        /* ==========================================================================
+           DATOS INSTITUCIONALES Y DE PRODUCTOS (PRODUCTOS.JS)
+           ========================================================================== */
+        const EmpresaData = {
+            nombre: "OZONICA DE COLOMBIA S.A.S.",
+            descripcion: "PURIFICADORES ELECTRÓNICOS PARA AGUA A BASE DE OZONO (DOMÉSTICOS E INDUSTRIALES) PURIFICADORES CONVENCIONALES, BATERIAS DE COCINA EN ACERO INOXIDABLE LINEA CLASSICA.",
+            whatsapp: "3185646939",
+            telefono: "3185646939",
+            sitioWeb: "https://www.ozonicadecolombia.com/",
+            bannerUrl: "https://i.postimg.cc/vBtn83t8/IMG-20260806-WA0074(1).jpg",
+            avatarUrl: "https://i.postimg.cc/vBtn83t8/IMG-20260806-WA0074(1).jpg"
+        };
+
+        const productosData = [
+            {
+                id: 1,
+                nombre: "Diozon 9000",
+                precio: 450000,
+                precioFormateado: "$450.000 COP",
+                linea: "Acrílico Tecnológico Premium",
+                imagen: "https://i.postimg.cc/kGNTmQBv/IMG-20260806-WA0057.jpg",
+                descripcionCorta: "Purificador electrónico fabricado en acrílico inyectado Premium para purificación de agua mediante tecnología de ozono.",
+                descripcionLarga: "Purificador fabricado en acrílico inyectado de alta resistencia con diseño elegante y líneas limpias, garantizando pureza y seguridad total para el hogar.",
+                beneficios: [
+                    "Eliminación de bacterias y virus mediante ozono",
+                    "Mejora notable en el sabor y olor del agua",
+                    "Ideal para desinfección de frutas y verduras",
+                    "Bajo consumo energético y alta durabilidad"
+                ],
+                especificaciones: {
+                    carcasa: "Acrílico inyectado de alta densidad",
+                    colores: "Blanco y Beige",
+                    medidas: "18.5 × 29 × 10 cm",
+                    capacidadPurificacion: "180 litros por hora",
+                    capacidadOzonizacion: "0.75 gramos por hora",
+                    peso: "1.5 kg",
+                    consumoElectrico: "25 Watts • 110 V",
+                    aplicaciones: "Hogar, Purificación de agua, Frutas, Verduras"
+                }
+            }
+            // Espacio reservado para agregar fácilmente los próximos 13 productos en el futuro.
+        ];
+
+        /* ==========================================================================
+           CONTROLADOR PRINCIPAL DE LA APLICACIÓN (APP.JS)
+           ========================================================================== */
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // Estado de la aplicación
+            let cantidadPedido = 1;
+            let productoSeleccionadoId = 1;
+
+            // 1. Cargar Información Institucional
+            document.getElementById('companyName').innerText = EmpresaData.nombre;
+            document.getElementById('companyDescription').innerText = EmpresaData.descripcion;
+            document.getElementById('companyBanner').src = EmpresaData.bannerUrl;
+            document.getElementById('companyAvatar').src = EmpresaData.avatarUrl;
+            document.getElementById('btnCall').href = `tel:${EmpresaData.telefono}`;
+            document.getElementById('btnWebsite').href = EmpresaData.sitioWeb;
+            document.getElementById('btnWhatsApp').href = `https://wa.me/57${EmpresaData.whatsapp}?text=Hola%20Ozonica,%20deseo%20más%20información%20sobre%20sus%20productos.`;
+
+            // 2. Control de Modales
+            const catalogModal = document.getElementById('catalogModal');
+            const techModal = document.getElementById('techModal');
+            const orderModal = document.getElementById('orderModal');
+            const qrModal = document.getElementById('qrModal');
+
+            function openModal(modal) { modal.classList.add('active'); }
+            function closeModal(modal) { modal.classList.remove('active'); }
+
+            // Botón Catálogo
+            document.getElementById('btnCatalog').addEventListener('click', () => {
+                renderCatalog();
+                openModal(catalogModal);
+            });
+            document.getElementById('closeCatalog').addEventListener('click', () => closeModal(catalogModal));
+            document.getElementById('btnFeaturedMore').addEventListener('click', () => {
+                renderCatalog();
+                openModal(catalogModal);
+            });
+
+            // Botón Ficha Técnica (Abre por defecto el producto 1 o el seleccionado)
+            window.openTechModal = function(id) {
+                productoSeleccionadoId = id;
+                renderTechDetails(id);
+                closeModal(catalogModal);
+                openModal(techModal);
+            }
+            document.getElementById('closeTech').addEventListener('click', () => closeModal(techModal));
+
+            // Botón Realizar Pedido
+            document.getElementById('btnOrderMain').addEventListener('click', () => {
+                updateOrderSummary(productoSeleccionadoId);
+                openModal(orderModal);
+            });
+            document.getElementById('closeOrder').addEventListener('click', () => closeModal(orderModal));
+
+            // Botón Código QR
+            document.getElementById('btnQR').addEventListener('click', () => {
+                const currentUrl = window.location.href;
+                document.getElementById('qrImageImg').src = `https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=${encodeURIComponent(currentUrl)}`;
+                openModal(qrModal);
+            });
+            document.getElementById('closeQR').addEventListener('click', () => closeModal(qrModal));
+            document.getElementById('btnCloseQRBtn').addEventListener('click', () => closeModal(qrModal));
+
+            // Cerrar modales al hacer clic fuera del contenedor
+            window.addEventListener('click', (e) => {
+                if (e.target === catalogModal) closeModal(catalogModal);
+                if (e.target === techModal) closeModal(techModal);
+                if (e.target === orderModal) closeModal(orderModal);
+                if (e.target === qrModal) closeModal(qrModal);
+            });
+
+            // 3. Renderizar Catálogo Dinámico
+            function renderCatalog() {
+                const grid = document.getElementById('catalogProductsGrid');
+                grid.innerHTML = '';
+
+                productosData.forEach(prod => {
+                    const card = document.createElement('div');
+                    card.className = 'product-card-item';
+                    card.innerHTML = `
+                        <div class="product-img-box">
+                            <img src="${prod.imagen}" alt="${prod.nombre}" class="product-img">
+                        </div>
+                        <div class="product-info-row">
+                            <span class="product-name">${prod.nombre}</span>
+                            <span class="product-price">${prod.precioFormateado}</span>
+                        </div>
+                        <p class="product-desc">${prod.descripcionCorta}</p>
+                        <div class="product-actions">
+                            <button class="btn-outline" onclick="openTechModal(${prod.id})">Ficha técnica</button>
+                            <button class="btn btn-success" style="padding:8px 12px; font-size:11px;" onclick="selectProductAndOrder(${prod.id})">Agregar pedido</button>
+                        </div>
+                    `;
+                    grid.appendChild(card);
+                });
+            }
+
+            window.selectProductAndOrder = function(id) {
+                productoSeleccionadoId = id;
+                closeModal(catalogModal);
+                updateOrderSummary(id);
+                openModal(orderModal);
+            }
+
+            // 4. Renderizar Ficha Técnica Interactiva
+            function renderTechDetails(id) {
+                const prod = productosData.find(p => p.id === id);
+                const container = document.getElementById('techContentDetails');
+
+                let beneficiosHtml = prod.beneficios.map(b => `<li style="font-size:11px; color:#475569; display:flex; align-items:center; gap:6px;"><i class="fa-solid fa-check" style="color:var(--green);"></i> ${b}</li>`).join('');
+
+                container.innerHTML = `
+                    <div style="display:flex; flex-direction:column; gap:12px;">
+                        <div style="width:100%; height:200px; border-radius:16px; overflow:hidden; border:1px solid var(--gray-border); background:#fff; display:flex; align-items:center; justify-content:center; padding:10px;">
+                            <img src="${prod.imagen}" alt="${prod.nombre}" style="max-width:100%; max-height:100%; object-fit:contain;">
+                        </div>
+                        <div style="display:flex; justify-content:space-between; align-items:center;">
+                            <h3 style="font-size:15px; font-weight:700; color:var(--text);">${prod.nombre}</h3>
+                            <span style="font-size:14px; font-weight:700; color:var(--primary);">${prod.precioFormateado}</span>
+                        </div>
+                        <p style="font-size:11px; color:#64748b; line-height:1.5;">${prod.descripcionLarga}</p>
+                        
+                        <div>
+                            <span style="font-size:11px; font-weight:700; color:var(--primary); text-transform:uppercase; letter-spacing:0.5px;">Beneficios Clave</span>
+                            <ul style="list-style:none; margin-top:6px; display:flex; flex-direction:column; gap:4px; background:var(--gray-light); padding:10px; border-radius:12px; border:1px solid var(--gray-border);">
+                                ${beneficiosHtml}
+                            </ul>
+                        </div>
+
+                        <div>
+                            <span style="font-size:11px; font-weight:700; color:var(--primary); text-transform:uppercase; letter-spacing:0.5px;">Especificaciones Técnicas</span>
+                            <div class="specs-list">
+                                <div class="spec-row"><span class="spec-label">Carcasa:</span><span class="spec-val">${prod.especificaciones.carcasa}</span></div>
+                                <div class="spec-row"><span class="spec-label">Colores:</span><span class="spec-val">${prod.especificaciones.colores}</span></div>
+                                <div class="spec-row"><span class="spec-label">Medidas:</span><span class="spec-val">${prod.especificaciones.medidas}</span></div>
+                                <div class="spec-row"><span class="spec-label">Cap. Purificación:</span><span class="spec-val">${prod.especificaciones.capacidadPurificacion}</span></div>
+                                <div class="spec-row"><span class="spec-label">Cap. Ozonización:</span><span class="spec-val">${prod.especificaciones.capacidadOzonizacion}</span></div>
+                                <div class="spec-row"><span class="spec-label">Peso:</span><span class="spec-val">${prod.especificaciones.peso}</span></div>
+                                <div class="spec-row"><span class="spec-label">Consumo:</span><span class="spec-val">${prod.especificaciones.consumoElectrico}</span></div>
+                                <div class="spec-row"><span class="spec-label">Aplicaciones:</span><span class="spec-val">${prod.especificaciones.aplicaciones}</span></div>
+                            </div>
+                        </div>
+
+                        <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:8px;">
+                            <button class="btn btn-success" style="padding:10px; font-size:11px;" onclick="closeTechAndOrder(${prod.id})">Agregar pedido</button>
+                            <a href="${EmpresaData.sitioWeb}" target="_blank" class="btn-outline" style="display:flex; align-items:center; justify-content:center; text-decoration:none;">Sitio Web</a>
+                        </div>
+                    </div>
+                `;
+            }
+
+            window.closeTechAndOrder = function(id) {
+                closeModal(techModal);
+                productoSeleccionadoId = id;
+                updateOrderSummary(id);
+                openModal(orderModal);
+            }
+
+            // 5. Formulario de Pedidos y Cantidades
+            function updateOrderSummary(id) {
+                const prod = productosData.find(p => p.id === id);
+                document.getElementById('summaryProductName').innerText = prod.nombre;
+                document.getElementById('summaryProductPrice').innerText = prod.precioFormateado;
+                document.getElementById('summaryProductImg').src = prod.imagen;
+                cantidadPedido = 1;
+                document.getElementById('qtyValue').innerText = cantidadPedido;
+            }
+
+            document.getElementById('qtyPlus').addEventListener('click', () => {
+                cantidadPedido++;
+                document.getElementById('qtyValue').innerText = cantidadPedido;
+            });
+
+            document.getElementById('qtyMinus').addEventListener('click', () => {
+                if (cantidadPedido > 1) {
+                    cantidadPedido--;
+                    document.getElementById('qtyValue').innerText = cantidadPedido;
+                }
+            });
+
+            // Enviar pedido por WhatsApp
+            document.getElementById('orderForm').addEventListener('submit', (e) => {
+                e.preventDefault();
+                const name = document.getElementById('clientName').value;
+                const phone = document.getElementById('clientPhone').value;
+                const address = document.getElementById('clientAddress').value;
+                const neighborhood = document.getElementById('clientNeighborhood').value;
+                const notes = document.getElementById('clientNotes').value;
+                const prod = productosData.find(p => p.id === productoSeleccionadoId);
+
+                let message = `*NUEVO PEDIDO - ${EmpresaData.nombre}*\n\n`;
+                message += `👤 *Cliente:* ${name}\n`;
+                message += `📞 *Teléfono:* ${phone}\n`;
+                message += `📍 *Dirección:* ${address} ${neighborhood ? '('+neighborhood+')' : ''}\n\n`;
+                message += `🛒 *PRODUCTO SOLICITADO:*\n`;
+                message += `• ${prod.nombre} x ${cantidadPedido} unidad(es)\n\n`;
+                if(notes) message += `📝 *Observaciones:* ${notes}\n\n`;
+                message += `_Quedo a la espera del cálculo del valor total y costo de domicilio._`;
+
+                const encodedMessage = encodeURIComponent(message);
+                const whatsappUrl = `https://wa.me/57${EmpresaData.whatsapp}?text=${encodedMessage}`;
+                
+                window.open(whatsappUrl, '_blank');
+                closeModal(orderModal);
+            });
+
+            // 6. Funciones de Compartir y Guardar Contacto (.VCF)
+            document.getElementById('btnShare').addEventListener('click', () => {
+                if (navigator.share) {
+                    navigator.share({
+                        title: EmpresaData.nombre,
+                        text: EmpresaData.descripcion,
+                        url: window.location.href,
+                    }).catch(() => {});
+                } else {
+                    const dummy = document.createElement('input');
+                    document.body.appendChild(dummy);
+                    dummy.value = window.location.href;
+                    dummy.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(dummy);
+                    showToast('¡Enlace copiado al portapapeles!');
+                }
+            });
+
+            document.getElementById('btnSave').addEventListener('click', () => {
+                const vcard = `BEGIN:VCARD
+VERSION:3.0
+FN:${EmpresaData.nombre}
+ORG:${EmpresaData.nombre}
+TEL;TYPE=WORK,VOICE:${EmpresaData.telefono}
+URL:${EmpresaData.sitioWeb}
+NOTE:${EmpresaData.descripcion}
+END:VCARD`;
+
+                const blob = new Blob([vcard], { type: 'text/vcard;charset=utf-8' });
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'Ozonica_de_Colombia.vcf';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                showToast('¡Contacto guardado con éxito!');
+            });
+
+            function showToast(text) {
+                const toast = document.getElementById('toastNotification');
+                toast.innerText = text;
+                toast.classList.add('show');
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                }, 3000);
+            }
+
+        });
+    </script>
+</body>
+</html>
