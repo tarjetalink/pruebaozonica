@@ -713,7 +713,7 @@
                 </div>
                 <h1 id="companyName" class="company-title">OZONICA DE COLOMBIA S.A.S.</h1>
                 <p id="companyDescription" class="company-desc">
-                    Purificadores electrónicos para agua a base de ozono (domésticos e industriales), purificadores convencionales y baterías de cocina en acero inoxidable Línea Classica.
+                    PURIFICADORES ELECTRÓNICOS PARA AGUA A BASE DE OZONO (DOMÉSTICOS E INDUSTRIALES) PURIFICADORES CONVENCIONALES, BATERIAS DE COCINA EN ACERO INOXIDABLE LINEA CLASSICA.
                 </p>
             </div>
         </header>
@@ -854,8 +854,11 @@
 
                 <div class="alert-box">
                     <div class="alert-text">
-                        <i class="fa-solid fa-circle-info" style="font-size:12px; margin-top:1px;"></i>
-                        <span>El valor total del pedido será calculado por el Departamento de Ventas una vez sea recibido, incluyendo el costo del domicilio según la ubicación.</span>
+                        <i class="fa-solid fa-circle-info" style="font-size:12px; margin-top:1px; flex-shrink:0;"></i>
+                        <span style="white-space: pre-line;">📌 Importante:
+El envío de este formulario corresponde a una solicitud de pedido y no constituye una compra confirmada.
+
+Una vez recibamos tu solicitud, nuestro Departamento de Ventas verificará la disponibilidad de los productos, calculará el valor total de la compra, incluyendo el costo del domicilio según tu ubicación, y se pondrá en contacto contigo para confirmar el pedido antes de procesarlo.</span>
                     </div>
                 </div>
 
@@ -1126,7 +1129,12 @@
                 message += `🛒 *PRODUCTO SOLICITADO:*\n`;
                 message += `• ${prod.nombre} x ${cantidadPedido} unidad(es)\n\n`;
                 if(notes) message += `📝 *Observaciones:* ${notes}\n\n`;
-                message += `_Quedo a la espera del cálculo del valor total y costo de domicilio._`;
+                message += `━━━━━━━━━━━━━━━━━━━━━━\n`;
+                message += `📌 *SOLICITUD DE PEDIDO*\n\n`;
+                message += `Agradezco la cotización de este pedido.\n\n`;
+                message += `Quedo atento(a) a la confirmación de disponibilidad de los productos, al valor total de la compra y al costo del domicilio para continuar con el proceso.\n\n`;
+                message += `Muchas gracias.\n`;
+                message += `━━━━━━━━━━━━━━━━━━━━━━`;
 
                 const encodedMessage = encodeURIComponent(message);
                 const whatsappUrl = `https://wa.me/57${EmpresaData.whatsapp}?text=${encodedMessage}`;
