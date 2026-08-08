@@ -3,410 +3,346 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OZONICA DE COLOMBIA S.A.S. - Tarjeta Digital Interactiva</title>
-    <!-- Font Awesome para Iconos profesionales -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts: Poppins -->
+    <title>Ozonica de Colombia S.A.S. | Tarjeta Digital Premium</title>
+    <link rel="manifest" href="./manifest.webmanifest">
+    <meta name="theme-color" content="#0b3c5d">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* ==========================================================================
-           VARIABLES Y CONFIGURACIÓN GLOBAL (COLORES CORPORATIVOS OFICIALES)
-           ========================================================================== */
         :root {
-            --primary: #2E56B2;       /* Azul principal */
-            --dark-blue: #24479C;   /* Azul oscuro */
-            --green: #78BE43;       /* Verde */
-            --orange: #F28A4A;      /* Naranja */
-            --sky: #6CC8E8;         /* Celeste */
-            --white: #FFFFFF;       /* Blanco */
-            --background: #F5F7FA;
-            --text: #263238;
-            --gray-light: #F8FAFC;
-            --gray-border: #E2E8F0;
-            --shadow: 0 10px 25px -5px rgba(46, 86, 178, 0.12), 0 8px 10px -6px rgba(46, 86, 178, 0.08);
-            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --primary-blue: #0b3c5d;
+            --secondary-blue: #1d6fa5;
+            --light-blue: #e8f4fc;
+            --accent-green: #2ecc71;
+            --accent-green-hover: #27ae60;
+            --accent-orange: #f39c12;
+            --whatsapp-green: #25d366;
+            --text-dark: #1e293b;
+            --text-muted: #64748b;
+            --white: #ffffff;
+            --panel-bg: linear-gradient(135deg, #ffffff 0%, #f4f9fd 100%);
+            --shadow-soft: 0 15px 35px -5px rgba(11, 60, 93, 0.12), 0 5px 15px rgba(0, 0, 0, 0.05);
+            --shadow-hover: 0 20px 40px -5px rgba(11, 60, 93, 0.2);
+            --radius-card: 32px;
+            --radius-btn: 16px;
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Poppins', sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            color: var(--text);
+            background: linear-gradient(180deg, #0b3c5d 0%, #062438 100%);
+            color: var(--text-dark);
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 0;
+            padding: 20px 10px;
         }
 
-        @media (min-width: 640px) {
-            body {
-                padding: 24px;
-            }
-        }
-
-        /* ==========================================================================
-           CONTENEDOR PRINCIPAL (ESTILO APP MÓVIL / PWA)
-           ========================================================================== */
-        .app-container {
+        .card-container {
             width: 100%;
-            max-width: 420px;
+            max-width: 480px;
             background: var(--white);
-            min-height: 100vh;
-            box-shadow: var(--shadow);
-            display: flex;
-            flex-direction: column;
-            position: relative;
+            border-radius: var(--radius-card);
             overflow: hidden;
-            animation: fadeIn 0.5s ease-out;
-        }
-
-        @media (min-width: 640px) {
-            .app-container {
-                min-height: 88vh;
-                border-radius: 32px;
-                border: 1px solid rgba(255, 255, 255, 0.6);
-            }
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(12px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* ==========================================================================
-           ENCABEZADO Y PERFIL
-           ========================================================================== */
-        .header-section {
+            box-shadow: var(--shadow-soft);
             position: relative;
-            background: var(--gray-light);
+            margin: auto;
         }
 
         .banner-container {
             width: 100%;
-            height: 170px;
-            overflow: hidden;
+            height: 220px;
             position: relative;
+            background-color: var(--primary-blue);
         }
 
-        .banner-img {
+        .banner {
             width: 100%;
             height: 100%;
             object-fit: cover;
-        }
-
-        .banner-overlay {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(to top, rgba(0,0,0,0.35), transparent);
+            display: block;
         }
 
         .profile-container {
-            padding: 0 20px 20px 20px;
             display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            background: var(--white);
-            border-bottom: 1px solid var(--gray-border);
-        }
-
-        .avatar-wrapper {
-            margin-top: -55px;
-            margin-bottom: 12px;
+            justify-content: center;
             position: relative;
-            animation: bounceIn 0.6s ease-out;
+            margin-top: -55px;
+            z-index: 10;
         }
 
-        @keyframes bounceIn {
-            0% { transform: scale(0.7); opacity: 0; }
-            70% { transform: scale(1.05); }
-            100% { transform: scale(1); opacity: 1; }
-        }
-
-        .avatar-img {
+        .profile-image {
             width: 110px;
             height: 110px;
             border-radius: 50%;
-            border: 4px solid var(--primary);
             object-fit: cover;
-            background: var(--white);
-            box-shadow: 0 6px 16px rgba(46, 86, 178, 0.2);
+            border: 4px solid var(--white);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            background-color: var(--white);
         }
 
-        .verified-badge {
-            position: absolute;
-            bottom: 4px;
-            right: 4px;
-            background: var(--green);
-            color: var(--white);
-            width: 26px;
-            height: 26px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 12px;
-            border: 2px solid var(--white);
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        .main-panel {
+            background: var(--panel-bg);
+            padding: 15px 24px 35px 24px;
+            border-top-left-radius: 32px;
+            border-top-right-radius: 32px;
+            margin-top: -15px;
+            position: relative;
+            z-index: 5;
+            text-align: center;
         }
 
-        .company-title {
-            font-size: 18px;
+        .company-name {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary-blue);
+            margin-top: 8px;
+            letter-spacing: -0.5px;
+        }
+
+        .company-tagline {
+            font-size: 0.95rem;
             font-weight: 700;
-            color: var(--primary);
-            letter-spacing: -0.3px;
-        }
-
-        .company-desc {
-            font-size: 11px;
-            color: #64748b;
-            margin-top: 6px;
-            line-height: 1.5;
-            padding: 0 10px;
-        }
-
-        /* ==========================================================================
-           BOTONES PRINCIPALES
-           ========================================================================== */
-        .main-actions {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            padding: 20px;
-            background: #fafafa;
-        }
-
-        .btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            padding: 12px 16px;
-            border-radius: 16px;
-            font-size: 13px;
-            font-weight: 600;
-            cursor: pointer;
-            text-decoration: none;
-            transition: var(--transition);
-            border: none;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.04);
-        }
-
-        .btn-primary {
-            background: var(--primary);
-            color: var(--white);
-        }
-
-        .btn-primary:hover {
-            background: var(--dark-blue);
-            transform: translateY(-1px);
-        }
-
-        .btn-success {
-            background: var(--green);
-            color: var(--white);
-        }
-
-        .btn-success:hover {
-            background: #6ba639;
-            transform: translateY(-1px);
-        }
-
-        @keyframes pulseGlow {
-            0% { box-shadow: 0 0 0 0 rgba(120, 190, 67, 0.4); }
-            70% { box-shadow: 0 0 0 12px rgba(120, 190, 67, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(120, 190, 67, 0); }
-        }
-
-        .pulse-effect {
-            animation: pulseGlow 2s infinite;
-        }
-
-        /* ==========================================================================
-           ACCESOS RÁPIDOS (GRID)
-           ========================================================================== */
-        .quick-access-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 12px;
-            padding: 10px 20px 20px 20px;
-        }
-
-        .quick-card {
-            background: var(--white);
-            border: 1px solid var(--gray-border);
-            border-radius: 18px;
-            padding: 14px 10px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 8px;
-            cursor: pointer;
-            text-decoration: none;
-            transition: var(--transition);
-            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
-        }
-
-        .quick-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 16px rgba(46, 86, 178, 0.08);
-            border-color: rgba(46, 86, 178, 0.3);
-        }
-
-        .quick-icon {
-            width: 44px;
-            height: 44px;
-            border-radius: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 18px;
-            transition: var(--transition);
-        }
-
-        .catalog-icon { background: rgba(46, 86, 178, 0.1); color: var(--primary); }
-        .web-icon { background: rgba(108, 200, 232, 0.15); color: #0284c7; }
-        .wa-icon { background: rgba(120, 190, 67, 0.1); color: var(--green); }
-        .save-icon { background: rgba(242, 138, 74, 0.1); color: var(--orange); }
-        .share-icon { background: rgba(147, 51, 234, 0.1); color: #9333ea; }
-        .qr-icon { background: rgba(217, 119, 6, 0.1); color: #d97706; }
-
-        .quick-card span {
-            font-size: 12px;
-            font-weight: 500;
-            color: var(--text);
-        }
-
-        /* ==========================================================================
-           TARJETA DESTACADA INFERIOR
-           ========================================================================== */
-        .featured-footer-card {
-            margin: 0 20px 20px 20px;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--dark-blue) 100%);
-            border-radius: 20px;
-            padding: 16px;
-            color: var(--white);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            box-shadow: var(--shadow);
-        }
-
-        .badge-tag {
-            background: var(--green);
-            color: var(--white);
-            font-size: 9px;
-            font-weight: 700;
-            padding: 3px 9px;
-            border-radius: 20px;
+            color: var(--accent-orange);
             text-transform: uppercase;
+            margin: 8px 0 14px 0;
             letter-spacing: 0.5px;
         }
 
-        .featured-info h3 {
-            font-size: 15px;
+        .company-description {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+            margin-bottom: 25px;
+            padding: 0 8px;
+        }
+
+        .primary-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+
+        .action-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 14px 16px;
+            border-radius: var(--radius-btn);
             font-weight: 700;
-            margin-top: 4px;
-        }
-
-        .featured-info p {
-            font-size: 11px;
-            opacity: 0.85;
-        }
-
-        .btn-white {
-            background: var(--white);
-            color: var(--primary);
+            font-size: 0.95rem;
+            text-decoration: none;
+            transition: all 0.25s ease;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
             border: none;
-            padding: 8px 14px;
-            border-radius: 12px;
-            font-size: 11px;
-            font-weight: 700;
             cursor: pointer;
-            transition: var(--transition);
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
 
-        .btn-white:hover {
-            background: var(--gray-light);
-            transform: scale(1.03);
+        .btn-call {
+            background-color: var(--primary-blue);
+            color: var(--white);
         }
 
-        /* ==========================================================================
-           PIE DE PÁGINA
-           ========================================================================== */
-        .app-footer {
+        .btn-call:hover {
+            background-color: var(--secondary-blue);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .btn-order {
+            background-color: var(--accent-green);
+            color: var(--white);
+        }
+
+        .btn-order:hover {
+            background-color: var(--accent-green-hover);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .interaction-prompt {
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+            font-weight: 600;
+        }
+
+        .secondary-actions {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .secondary-actions.last-row {
+            grid-template-columns: repeat(2, 1fr);
+            max-width: 85%;
+            margin: 0 auto 25px auto;
+        }
+
+        .secondary-btn {
+            background-color: var(--white);
+            border: 1px solid rgba(11, 60, 93, 0.1);
+            border-radius: 16px;
+            padding: 16px 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            text-decoration: none;
+            color: var(--primary-blue);
+            font-weight: 600;
+            font-size: 0.78rem;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+            cursor: pointer;
+        }
+
+        .secondary-btn i {
+            font-size: 1.3rem;
+            color: var(--secondary-blue);
+        }
+
+        .secondary-btn.whatsapp-btn i {
+            color: var(--whatsapp-green);
+        }
+
+        .secondary-btn:hover {
+            background-color: var(--light-blue);
+            border-color: var(--secondary-blue);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(11, 60, 93, 0.08);
+        }
+
+        .install-section {
+            margin-top: 20px;
+            border-top: 1px dashed rgba(11, 60, 93, 0.15);
+            padding-top: 20px;
+        }
+
+        .install-btn {
+            background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+            color: var(--white);
+            width: 100%;
             padding: 14px;
-            text-align: center;
-            background: var(--gray-light);
-            font-size: 11px;
-            color: #64748b;
-            border-top: 1px solid var(--gray-border);
-            margin-top: auto;
+            border-radius: var(--radius-btn);
+            font-weight: 700;
+            font-size: 0.9rem;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 4px 12px rgba(11,60,93,0.15);
+            transition: all 0.2s ease;
         }
 
-        /* ==========================================================================
-           VENTANAS MODALES Y POP-UPS (GLASSMORPHISM)
-           ========================================================================== */
+        .install-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .install-manual-link {
+            display: inline-block;
+            margin-top: 10px;
+            font-size: 0.8rem;
+            color: var(--secondary-blue);
+            text-decoration: underline;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .install-manual-link:hover {
+            color: var(--primary-blue);
+        }
+
+        .installed-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--accent-green);
+            font-weight: 700;
+            font-size: 0.85rem;
+            background: rgba(46, 204, 113, 0.1);
+            padding: 8px 16px;
+            border-radius: 20px;
+            margin-top: 5px;
+        }
+
+        .footer {
+            margin-top: 25px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(11, 60, 93, 0.08);
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        .footer span {
+            display: block;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 2px;
+        }
+
+        /* Modal Overlay */
         .modal-overlay {
             position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(6, 36, 56, 0.7);
+            backdrop-filter: blur(5px);
             z-index: 1000;
             display: flex;
-            align-items: flex-end;
             justify-content: center;
+            align-items: center;
+            padding: 20px;
             opacity: 0;
-            visibility: hidden;
-            transition: var(--transition);
-        }
-
-        @media (min-width: 640px) {
-            .modal-overlay {
-                align-items: center;
-                padding: 20px;
-            }
+            pointer-events: none;
+            transition: opacity 0.3s ease;
         }
 
         .modal-overlay.active {
             opacity: 1;
-            visibility: visible;
+            pointer-events: auto;
         }
 
-        .modal-container {
+        .modal-card {
             background: var(--white);
             width: 100%;
-            max-width: 420px;
-            max-height: 88vh;
-            border-radius: 28px 28px 0 0;
+            max-width: 400px;
+            border-radius: 24px;
             padding: 24px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.25);
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+            max-height: 90vh;
             overflow-y: auto;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-            transform: translateY(100%);
-            transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-            display: flex;
-            flex-direction: column;
+            text-align: left;
         }
 
-        @media (min-width: 640px) {
-            .modal-container {
-                border-radius: 28px;
-                max-height: 85vh;
-            }
-        }
-
-        .modal-overlay.active .modal-container {
+        .modal-overlay.active .modal-card {
             transform: translateY(0);
         }
 
@@ -415,21 +351,21 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 16px;
+            border-bottom: 1px solid #eee;
             padding-bottom: 12px;
-            border-bottom: 1px solid var(--gray-border);
         }
 
         .modal-title {
-            font-size: 16px;
-            font-weight: 700;
-            color: var(--primary);
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: var(--primary-blue);
             display: flex;
             align-items: center;
             gap: 8px;
         }
 
         .modal-close {
-            background: var(--gray-light);
+            background: #f1f5f9;
             border: none;
             width: 32px;
             height: 32px;
@@ -437,761 +373,397 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #64748b;
             cursor: pointer;
-            transition: var(--transition);
+            color: var(--text-muted);
+            font-size: 1rem;
+            transition: background 0.2s;
         }
 
         .modal-close:hover {
-            background: var(--gray-border);
-            color: var(--text);
+            background: #e2e8f0;
+            color: var(--text-dark);
         }
 
-        /* ==========================================================================
-           ESTILOS INTERNOS DE CATÁLOGO Y FICHAS TÉCNICAS
-           ========================================================================== */
-        .products-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
+        .modal-body {
+            font-size: 0.88rem;
+            color: var(--text-dark);
+            line-height: 1.6;
         }
 
-        .product-card-item {
-            background: var(--gray-light);
-            border: 1px solid var(--gray-border);
-            border-radius: 20px;
-            padding: 16px;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .product-img-box {
-            width: 100%;
-            height: 180px;
-            background: var(--white);
-            border-radius: 14px;
-            overflow: hidden;
-            border: 1px solid var(--gray-border);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 8px;
-        }
-
-        .product-img {
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: contain;
-        }
-
-        .product-info-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-        }
-
-        .product-name {
-            font-size: 14px;
+        .modal-body h4 {
+            color: var(--secondary-blue);
+            margin: 12px 0 6px 0;
+            font-size: 0.95rem;
             font-weight: 700;
-            color: var(--text);
         }
 
-        .product-price {
-            font-size: 14px;
-            font-weight: 700;
-            color: var(--primary);
+        .modal-body ol {
+            padding-left: 18px;
+            margin-bottom: 10px;
         }
 
-        .product-desc {
-            font-size: 11px;
-            color: #64748b;
-            line-height: 1.4;
+        .modal-body li {
+            margin-bottom: 6px;
         }
 
-        .product-actions {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 8px;
-            margin-top: 4px;
-        }
-
-        .btn-outline {
-            background: var(--white);
-            border: 1px solid var(--primary);
-            color: var(--primary);
-            padding: 8px 12px;
-            border-radius: 12px;
-            font-size: 11px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
+        /* QR Modal specific */
+        .qr-content {
             text-align: center;
         }
 
-        .btn-outline:hover {
-            background: rgba(46, 86, 178, 0.05);
+        .qr-box {
+            background: var(--light-blue);
+            padding: 20px;
+            border-radius: 16px;
+            margin: 15px 0;
+            display: inline-block;
         }
 
-        /* Formulario de Pedidos */
-        .form-group {
-            margin-bottom: 12px;
-        }
-
-        .form-label {
-            display: block;
-            font-size: 11px;
-            font-weight: 600;
-            color: #475569;
-            margin-bottom: 4px;
-        }
-
-        .form-input, .form-textarea {
+        .qr-link-input {
             width: 100%;
             padding: 10px 12px;
-            border: 1px solid var(--gray-border);
-            border-radius: 12px;
-            font-size: 12px;
-            background: var(--gray-light);
-            color: var(--text);
-            outline: none;
-            transition: var(--transition);
-        }
-
-        .form-input:focus, .form-textarea:focus {
-            border-color: var(--primary);
-            background: var(--white);
-            box-shadow: 0 0 0 3px rgba(46, 86, 178, 0.1);
-        }
-
-        .form-textarea {
-            resize: none;
-            height: 65px;
-        }
-
-        .order-summary-box {
-            border: 1px solid var(--gray-border);
-            border-radius: 14px;
-            overflow: hidden;
-            margin: 12px 0;
-            background: var(--white);
-        }
-
-        .order-summary-header {
-            background: var(--gray-light);
-            padding: 8px 12px;
-            font-size: 11px;
-            font-weight: 700;
-            color: #475569;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid var(--gray-border);
-        }
-
-        .order-summary-body {
-            padding: 12px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .qty-controls {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            border: 1px solid var(--gray-border);
-            border-radius: 10px;
-            padding: 2px 8px;
-            background: var(--gray-light);
-        }
-
-        .qty-btn {
-            background: none;
-            border: none;
-            font-weight: 700;
-            color: #64748b;
-            cursor: pointer;
-            font-size: 13px;
-            padding: 2px 4px;
-        }
-
-        .qty-btn:hover {
-            color: var(--primary);
-        }
-
-        .qty-value {
-            font-size: 12px;
-            font-weight: 700;
-            width: 16px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            background: #f8fafc;
+            color: var(--text-dark);
+            margin-bottom: 12px;
             text-align: center;
         }
 
-        .alert-box {
-            background: #fffbeb;
-            border: 1px solid #fef3c7;
-            padding: 10px;
-            border-radius: 12px;
-            margin-bottom: 14px;
-        }
-
-        .alert-text {
-            font-size: 10px;
-            color: #b45309;
-            line-height: 1.4;
-            display: flex;
-            gap: 6px;
-        }
-
-        /* Especificaciones en Ficha Técnica */
-        .specs-list {
-            background: var(--gray-light);
-            border-radius: 14px;
-            padding: 12px;
-            border: 1px solid var(--gray-border);
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            margin-top: 12px;
-        }
-
-        .spec-row {
-            display: flex;
-            justify-content: space-between;
-            font-size: 11px;
-        }
-
-        .spec-label {
-            color: #64748b;
-        }
-
-        .spec-val {
+        .btn-copy {
+            background: var(--secondary-blue);
+            color: var(--white);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
             font-weight: 600;
-            color: var(--text);
-            text-align: right;
+            cursor: pointer;
+            width: 100%;
+            transition: background 0.2s;
         }
 
-        /* Notificación Toast */
+        .btn-copy:hover {
+            background: var(--primary-blue);
+        }
+
+        /* Notification toast */
         .toast {
             position: fixed;
-            bottom: 24px;
+            bottom: 20px;
             left: 50%;
             transform: translateX(-50%) translateY(100px);
-            background: rgba(15, 23, 42, 0.92);
+            background: var(--primary-blue);
             color: var(--white);
-            font-size: 12px;
-            padding: 10px 18px;
-            border-radius: 16px;
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 600;
             box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease;
             z-index: 2000;
-            opacity: 0;
-            transition: var(--transition);
-            backdrop-filter: blur(4px);
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .toast.show {
             transform: translateX(-50%) translateY(0);
-            opacity: 1;
+        }
+
+        @media (max-width: 360px) {
+            body {
+                padding: 5px;
+            }
+            .primary-actions {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
 
-    <!-- CONTENEDOR DE LA APLICACIÓN -->
-    <main class="app-container">
-        
-        <!-- ENCABEZADO Y BANNER -->
-        <header class="header-section">
-            <div class="banner-container">
-                <img id="companyBanner" src="" alt="Banner Ozonica" class="banner-img">
-                <div class="banner-overlay"></div>
-            </div>
-            <div class="profile-container">
-                <div class="avatar-wrapper">
-                    <img id="companyAvatar" src="" alt="Logo Ozonica" class="avatar-img">
-                    <span class="verified-badge" title="Verificado"><i class="fa-solid fa-check"></i></span>
-                </div>
-                <h1 id="companyName" class="company-title">OZONICA DE COLOMBIA S.A.S.</h1>
-                <p id="companyDescription" class="company-desc">
-                    PURIFICADORES ELECTRÓNICOS PARA AGUA A BASE DE OZONO (DOMÉSTICOS E INDUSTRIALES) PURIFICADORES CONVENCIONALES, BATERIAS DE COCINA EN ACERO INOXIDABLE LINEA CLASSICA.
-                </p>
-            </div>
-        </header>
-
-        <!-- BOTONES PRINCIPALES -->
-        <section class="main-actions">
-            <a id="btnCall" href="#" class="btn btn-primary">
-                <i class="fa-solid fa-phone-volume"></i> Llamar
-            </a>
-            <button id="btnOrderMain" class="btn btn-success pulse-effect">
-                <i class="fa-solid fa-cart-shopping"></i> Realizar pedido
-            </button>
-        </section>
-
-        <!-- ACCESOS RÁPIDOS -->
-        <section class="quick-access-grid">
-            <button id="btnCatalog" class="quick-card">
-                <div class="quick-icon catalog-icon"><i class="fa-solid fa-book-open"></i></div>
-                <span>Catálogo</span>
-            </button>
-            <a id="btnWebsite" href="#" target="_blank" class="quick-card">
-                <div class="quick-icon web-icon"><i class="fa-solid fa-globe"></i></div>
-                <span>Sitio web</span>
-            </a>
-            <a id="btnWhatsApp" href="#" target="_blank" class="quick-card">
-                <div class="quick-icon wa-icon"><i class="fa-brands fa-whatsapp"></i></div>
-                <span>WhatsApp</span>
-            </a>
-            <button id="btnSave" class="quick-card">
-                <div class="quick-icon save-icon"><i class="fa-solid fa-user-plus"></i></div>
-                <span>Guardar</span>
-            </button>
-            <button id="btnShare" class="quick-card">
-                <div class="quick-icon share-icon"><i class="fa-solid fa-share-nodes"></i></div>
-                <span>Compartir</span>
-            </button>
-            <button id="btnQR" class="quick-card">
-                <div class="quick-icon qr-icon"><i class="fa-solid fa-qrcode"></i></div>
-                <span>Código QR</span>
-            </button>
-        </section>
-
-        <!-- TARJETA DESTACADA INFERIOR -->
-        <section class="featured-footer-card">
-            <div class="featured-info">
-                <span class="badge-tag">Destacado</span>
-                <h3 id="featuredTitle">Diozon 9000</h3>
-                <p>Tecnología avanzada de ozono</p>
-            </div>
-            <button id="btnFeaturedMore" class="btn-white">Ver más</button>
-        </section>
-
-        <!-- PIE DE PÁGINA -->
-        <footer class="app-footer">
-            <p>© 2026 OZONICA DE COLOMBIA S.A.S. • Tarjeta Link</p>
-        </footer>
-    </main>
-
-    <!-- ================= MODALES Y POP-UPS ================= -->
-
-    <!-- MODAL CATÁLOGO -->
-    <div id="catalogModal" class="modal-overlay">
-        <div class="modal-container">
-            <div class="modal-header">
-                <h2 class="modal-title"><i class="fa-solid fa-book-open"></i> Catálogo de Productos</h2>
-                <button id="closeCatalog" class="modal-close"><i class="fa-solid fa-xmark"></i></button>
-            </div>
-            <div id="catalogProductsGrid" class="products-grid">
-                <!-- Se inyecta dinámicamente desde JavaScript -->
-            </div>
+    <div class="card-container">
+        <!-- Banner Oficial -->
+        <div class="banner-container">
+            <img class="banner" src="https://i.postimg.cc/TYS2G6mb/Whats-App-Image-2026-08-06-at-8-54-52-PM.jpg" alt="Banner Ozonica" crossorigin="anonymous">
         </div>
-    </div>
 
-    <!-- MODAL FICHA TÉCNICA -->
-    <div id="techModal" class="modal-overlay">
-        <div class="modal-container">
-            <div class="modal-header">
-                <h2 class="modal-title"><i class="fa-solid fa-file-lines"></i> Ficha Técnica</h2>
-                <button id="closeTech" class="modal-close"><i class="fa-solid fa-xmark"></i></button>
-            </div>
-            <div id="techContentDetails">
-                <!-- Se inyecta dinámicamente desde JavaScript -->
-            </div>
+        <!-- Foto de Perfil / Logo Superpuesto -->
+        <div class="profile-container">
+            <img class="profile-image" src="https://i.postimg.cc/GpJPyzx0/ozonica-logo.png" alt="Ozonica Logo" crossorigin="anonymous">
         </div>
-    </div>
 
-    <!-- MODAL FORMULARIO DE PEDIDOS -->
-    <div id="orderModal" class="modal-overlay">
-        <div class="modal-container">
-            <div class="modal-header">
-                <h2 class="modal-title"><i class="fa-solid fa-cart-shopping"></i> Realizar Pedido</h2>
-                <button id="closeOrder" class="modal-close"><i class="fa-solid fa-xmark"></i></button>
-            </div>
-            <form id="orderForm">
-                <div class="form-group">
-                    <label class="form-label" for="clientName">Nombre Completo *</label>
-                    <input type="text" id="clientName" required class="form-input" placeholder="Ej. Carlos Pérez">
-                </div>
-                <div class="form-group">
-                    <label class="form-label" for="clientPhone">Teléfono / WhatsApp *</label>
-                    <input type="tel" id="clientPhone" required class="form-input" placeholder="Ej. 3101234567">
-                </div>
-                <div class="form-group">
-                    <label class="form-label" for="clientAddress">Dirección de Entrega *</label>
-                    <input type="text" id="clientAddress" required class="form-input" placeholder="Ej. Calle 50 # 20-30">
-                </div>
-                <div class="form-group">
-                    <label class="form-label" for="clientNeighborhood">Barrio (Opcional)</label>
-                    <input type="text" id="clientNeighborhood" class="form-input" placeholder="Ej. El Poblado">
-                </div>
+        <!-- Panel Principal con Degradado Sutil -->
+        <div class="main-panel">
+            <h1 class="company-name" id="companyName">OZONICA DE COLOMBIA S.A.S.</h1>
+            <p class="company-tagline">Vive al Natural</p>
+            <p class="company-description" id="companyDescription">
+                PURIFICADORES ELECTRÓNICOS PARA AGUA A BASE DE OZONO (DOMÉSTICOS E INDUSTRIALES) PURIFICADORES CONVENCIONALES, BATERIAS DE CONCINA EN ACERO INOXIDABLE LINEA CLASSICA.
+            </p>
 
-                <!-- Acordeón / Tarjeta del Producto Seleccionado -->
-                <div class="order-summary-box">
-                    <div class="order-summary-header">
-                        <span>Productos Seleccionados</span>
-                        <span style="background:var(--primary); color:var(--white); padding:1px 8px; border-radius:10px; font-size:9px;">Activo</span>
-                    </div>
-                    <div class="order-summary-body">
-                        <div style="display: flex; align-items: center; gap: 10px;">
-                            <img id="summaryProductImg" src="" alt="Producto" style="width: 40px; height: 40px; object-fit: contain; background: #fff; border-radius: 8px; border: 1px solid var(--gray-border);">
-                            <div>
-                                <p id="summaryProductName" style="font-size:12px; font-weight:700; color:var(--text);">Diozon 9000</p>
-                                <p id="summaryProductPrice" style="font-size:11px; color:var(--primary); font-weight:600;">$450.000 COP</p>
-                            </div>
-                        </div>
-                        <div class="qty-controls">
-                            <button type="button" id="qtyMinus" class="qty-btn">-</button>
-                            <span id="qtyValue" class="qty-value">1</span>
-                            <button type="button" id="qtyPlus" class="qty-btn">+</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label" for="clientNotes">Observaciones</label>
-                    <textarea id="clientNotes" class="form-textarea" placeholder="Instrucciones especiales de entrega..."></textarea>
-                </div>
-
-                <div class="alert-box">
-                    <div class="alert-text">
-                        <i class="fa-solid fa-circle-info" style="font-size:12px; margin-top:1px; flex-shrink:0;"></i>
-                        <span style="white-space: pre-line;">📌 Importante:
-El envío de este formulario corresponde a una solicitud de pedido y no constituye una compra confirmada.
-
-Una vez recibamos tu solicitud, nuestro Departamento de Ventas verificará la disponibilidad de los productos, calculará el valor total de la compra, incluyendo el costo del domicilio según tu ubicación, y se pondrá en contacto contigo para confirmar el pedido antes de procesarlo.</span>
-                    </div>
-                </div>
-
-                <button type="submit" class="btn btn-success" style="width: 100%;">
-                    <i class="fa-brands fa-whatsapp" style="font-size:16px;"></i> Enviar pedido por WhatsApp
+            <!-- Botones Principales -->
+            <div class="primary-actions">
+                <a href="tel:+573185646939" class="action-button btn-call" id="btnCall">
+                    <i class="fa-solid fa-phone"></i> LLAMAR
+                </a>
+                <button class="action-button btn-order" id="btnOrder">
+                    <i class="fa-solid fa-cart-shopping"></i> HACER PEDIDO
                 </button>
-            </form>
+            </div>
+
+            <div class="interaction-prompt">Toca los iconos para interactuar</div>
+
+            <!-- Botones Secundarios (Fila 1: Catálogo, Sitio Web, WhatsApp) -->
+            <div class="secondary-actions">
+                <button class="secondary-btn" id="btnCatalog">
+                    <i class="fa-solid fa-bag-shopping"></i>
+                    <span>CATÁLOGO</span>
+                </button>
+                <a href="https://www.ozonicadecolombia.com/" target="_blank" rel="noopener" class="secondary-btn" id="btnWebsite">
+                    <i class="fa-solid fa-globe"></i>
+                    <span>SITIO WEB</span>
+                </a>
+                <a href="https://wa.me/573185646939?text=Hola%20Ozonica,%20me%20comunico%20para%20solicitar%20más%20información" target="_blank" rel="noopener" class="secondary-btn whatsapp-btn" id="btnWhatsapp">
+                    <i class="fa-brands fa-whatsapp"></i>
+                    <span>WHATSAPP</span>
+                </a>
+            </div>
+
+            <!-- Botones Secundarios (Fila 2: Compartir QR, Guardar Contacto) -->
+            <div class="secondary-actions last-row">
+                <button class="secondary-btn" id="btnShareQR">
+                    <i class="fa-solid fa-qrcode"></i>
+                    <span>COMPARTIR QR</span>
+                </button>
+                <button class="secondary-btn" id="btnSaveContact">
+                    <i class="fa-solid fa-address-card"></i>
+                    <span>GUARDAR CONTACTO</span>
+                </button>
+            </div>
+
+            <!-- Sección PWA Instalar App -->
+            <div class="install-section" id="installSection">
+                <div id="installPromptContainer">
+                    <button class="install-btn" id="btnInstallApp">
+                        <i class="fa-solid fa-download"></i> INSTALAR APP OZONICA
+                    </button>
+                    <button class="install-manual-link" id="btnManualInstructions">Ver instrucciones de instalación</button>
+                </div>
+                <div id="installedContainer" style="display: none;">
+                    <div class="installed-badge">
+                        <i class="fa-solid fa-circle-check"></i> ✓ OZONICA YA ESTÁ INSTALADA
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer Corporativo -->
+            <div class="footer">
+                <span>Asistente Digital Ozonica</span>
+                Ozonica de Colombia S.A.S. © 2026
+            </div>
         </div>
     </div>
 
-    <!-- MODAL CÓDIGO QR -->
-    <div id="qrModal" class="modal-overlay">
-        <div class="modal-container" style="max-width: 320px; text-align: center; border-radius: 28px;">
+    <!-- Modal Instrucciones de Instalación PWA -->
+    <div class="modal-overlay" id="modalInstructions">
+        <div class="modal-card">
             <div class="modal-header">
-                <h3 class="modal-title">Código QR Tarjeta</h3>
-                <button id="closeQR" class="modal-close"><i class="fa-solid fa-xmark"></i></button>
+                <h3 class="modal-title"><i class="fa-solid fa-mobile-screen-button"></i> ¿Cómo instalar en mi dispositivo?</h3>
+                <button class="modal-close" id="closeModalInstructions"><i class="fa-solid fa-xmark"></i></button>
             </div>
-            <div style="background:var(--gray-light); padding:16px; border-radius:18px; border:1px solid var(--gray-border); display:flex; justify-content:center; margin-bottom:14px;">
-                <img id="qrImageImg" src="" alt="Código QR" style="width: 190px; height: 190px; object-fit: contain;">
+            <div class="modal-body">
+                <h4>ANDROID (Google Chrome)</h4>
+                <ol>
+                    <li>Abre la tarjeta en Google Chrome.</li>
+                    <li>Toca los tres puntos arriba a la derecha.</li>
+                    <li>Selecciona "Agregar a pantalla de inicio" o "Instalar aplicación".</li>
+                    <li>Confirma la instalación.</li>
+                </ol>
+
+                <h4>WINDOWS (Chrome / Edge)</h4>
+                <ol>
+                    <li>Abre la tarjeta en tu navegador.</li>
+                    <li>Busca el icono de instalación <i class="fa-solid fa-desktop"></i> en la barra de direcciones o abre el menú del navegador.</li>
+                    <li>Selecciona "Instalar Ozonica".</li>
+                    <li>Confirma la instalación.</li>
+                </ol>
+
+                <h4>IPHONE / IPAD (Safari)</h4>
+                <ol>
+                    <li>Abre la tarjeta en Safari.</li>
+                    <li>Pulsa el botón Compartir <i class="fa-solid fa-arrow-up-from-bracket"></i> en la barra inferior.</li>
+                    <li>Desplázate y selecciona "Agregar a pantalla de inicio".</li>
+                    <li>Pulsa "Agregar" en la esquina superior.</li>
+                </ol>
             </div>
-            <p style="font-size: 11px; color: #64748b; margin-bottom: 14px;">Escanea este código para compartir la tarjeta digital instantáneamente.</p>
-            <button id="btnCloseQRBtn" class="btn btn-primary" style="width: 100%;">Cerrar</button>
         </div>
     </div>
 
-    <!-- NOTIFICACIÓN TOAST -->
-    <div id="toastNotification" class="toast">Notificación</div>
+    <!-- Modal Compartir QR -->
+    <div class="modal-overlay" id="modalQR">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3 class="modal-title"><i class="fa-solid fa-qrcode"></i> Compartir Tarjeta Digital</h3>
+                <button class="modal-close" id="closeModalQR"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body qr-content">
+                <p>Escanea este código QR con cualquier dispositivo para acceder a la tarjeta digital oficial de Ozonica.</p>
+                <div class="qr-box">
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=https://www.ozonicadecolombia.com/" alt="QR Ozonica" id="qrImage">
+                </div>
+                <input type="text" class="qr-link-input" id="cardUrlInput" value="" readonly>
+                <button class="btn-copy" id="btnCopyLink"><i class="fa-solid fa-copy"></i> Copiar Enlace</button>
+            </div>
+        </div>
+    </div>
 
-    <!-- ================= LÓGICA JAVASCRIPT (VANILLA ES6) ================= -->
+    <!-- Toast de Notificación -->
+    <div class="toast" id="toastMessage">
+        <i class="fa-solid fa-circle-check"></i> <span id="toastText">Acción realizada</span>
+    </div>
+
     <script>
-        /* ==========================================================================
-           DATOS INSTITUCIONALES Y DE PRODUCTOS (PRODUCTOS.JS)
-           ========================================================================== */
-        const EmpresaData = {
-            nombre: "OZONICA DE COLOMBIA S.A.S.",
-            descripcion: "PURIFICADORES ELECTRÓNICOS PARA AGUA A BASE DE OZONO (DOMÉSTICOS E INDUSTRIALES) PURIFICADORES CONVENCIONALES, BATERIAS DE COCINA EN ACERO INOXIDABLE LINEA CLASSICA.",
-            whatsapp: "3185646939",
-            telefono: "3185646939",
+        // Configuración Centralizada
+        const CONFIG = {
+            empresa: "OZONICA DE COLOMBIA S.A.S.",
+            telefono: "573185646939",
+            telefonoDisplay: "318 564 6939",
+            whatsapp: "https://wa.me/573185646939",
+            whatsappMensaje: "Hola Ozonica, me comunico para solicitar más información",
             sitioWeb: "https://www.ozonicadecolombia.com/",
-            bannerUrl: "https://i.postimg.cc/vBtn83t8/IMG-20260806-WA0074(1).jpg",
-            avatarUrl: "https://i.postimg.cc/vBtn83t8/IMG-20260806-WA0074(1).jpg"
+            banner: "https://i.postimg.cc/TYS2G6mb/Whats-App-Image-2026-08-06-at-8-54-52-PM.jpg",
+            fotoPerfil: "https://i.postimg.cc/GpJPyzx0/ozonica-logo.png"
         };
 
-        const productosData = [
-            {
-                id: 1,
-                nombre: "Diozon 9000",
-                precio: 450000,
-                precioFormateado: "$450.000 COP",
-                linea: "Acrílico Tecnológico Premium",
-                imagen: "https://i.postimg.cc/kGNTmQBv/IMG-20260806-WA0057.jpg",
-                descripcionCorta: "Purificador electrónico fabricado en acrílico inyectado Premium para purificación de agua mediante tecnología de ozono.",
-                descripcionLarga: "Purificador fabricado en acrílico inyectado de alta resistencia con diseño elegante y líneas limpias, garantizando pureza y seguridad total para el hogar.",
-                beneficios: [
-                    "Eliminación de bacterias y virus mediante ozono",
-                    "Mejora notable en el sabor y olor del agua",
-                    "Ideal para desinfección de frutas y verduras",
-                    "Bajo consumo energético y alta durabilidad"
-                ],
-                especificaciones: {
-                    carcasa: "Acrílico inyectado de alta densidad",
-                    colores: "Blanco y Beige",
-                    medidas: "18.5 × 29 × 10 cm",
-                    capacidadPurificacion: "180 litros por hora",
-                    capacidadOzonizacion: "0.75 gramos por hora",
-                    peso: "1.5 kg",
-                    consumoElectrico: "25 Watts • 110 V",
-                    aplicaciones: "Hogar, Purificación de agua, Frutas, Verduras"
-                }
-            }
-            // Espacio reservado para agregar fácilmente los próximos 13 productos en el futuro.
-        ];
+        // Utilidad para mostrar notificaciones Toast
+        function showToast(message) {
+            const toast = document.getElementById('toastMessage');
+            const toastText = document.getElementById('toastText');
+            toastText.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
 
-        /* ==========================================================================
-           CONTROLADOR PRINCIPAL DE LA APLICACIÓN (APP.JS)
-           ========================================================================== */
         document.addEventListener('DOMContentLoaded', () => {
-            
-            // Estado de la aplicación
-            let cantidadPedido = 1;
-            let productoSeleccionadoId = 1;
+            // Asignar dinámicamente enlace actual al input de compartir QR
+            const currentUrl = window.location.href;
+            document.getElementById('cardUrlInput').value = currentUrl;
 
-            // 1. Cargar Información Institucional
-            document.getElementById('companyName').innerText = EmpresaData.nombre;
-            document.getElementById('companyDescription').innerText = EmpresaData.descripcion;
-            document.getElementById('companyBanner').src = EmpresaData.bannerUrl;
-            document.getElementById('companyAvatar').src = EmpresaData.avatarUrl;
-            document.getElementById('btnCall').href = `tel:${EmpresaData.telefono}`;
-            document.getElementById('btnWebsite').href = EmpresaData.sitioWeb;
-            document.getElementById('btnWhatsApp').href = `https://wa.me/57${EmpresaData.whatsapp}?text=Hola%20Ozonica,%20deseo%20más%20información%20sobre%20sus%20productos.`;
+            // Manejo de modales
+            const modalInstructions = document.getElementById('modalInstructions');
+            const modalQR = document.getElementById('modalQR');
 
-            // 2. Control de Modales
-            const catalogModal = document.getElementById('catalogModal');
-            const techModal = document.getElementById('techModal');
-            const orderModal = document.getElementById('orderModal');
-            const qrModal = document.getElementById('qrModal');
-
-            function openModal(modal) { modal.classList.add('active'); }
-            function closeModal(modal) { modal.classList.remove('active'); }
-
-            // Botón Catálogo
-            document.getElementById('btnCatalog').addEventListener('click', () => {
-                renderCatalog();
-                openModal(catalogModal);
+            document.getElementById('btnManualInstructions').addEventListener('click', () => {
+                modalInstructions.classList.add('active');
             });
-            document.getElementById('closeCatalog').addEventListener('click', () => closeModal(catalogModal));
-            document.getElementById('btnFeaturedMore').addEventListener('click', () => {
-                renderCatalog();
-                openModal(catalogModal);
+            document.getElementById('closeModalInstructions').addEventListener('click', () => {
+                modalInstructions.classList.remove('active');
             });
 
-            // Botón Ficha Técnica (Abre por defecto el producto 1 o el seleccionado)
-            window.openTechModal = function(id) {
-                productoSeleccionadoId = id;
-                renderTechDetails(id);
-                closeModal(catalogModal);
-                openModal(techModal);
-            }
-            document.getElementById('closeTech').addEventListener('click', () => closeModal(techModal));
-
-            // Botón Realizar Pedido
-            document.getElementById('btnOrderMain').addEventListener('click', () => {
-                updateOrderSummary(productoSeleccionadoId);
-                openModal(orderModal);
+            document.getElementById('btnShareQR').addEventListener('click', () => {
+                modalQR.classList.add('active');
             });
-            document.getElementById('closeOrder').addEventListener('click', () => closeModal(orderModal));
-
-            // Botón Código QR
-            document.getElementById('btnQR').addEventListener('click', () => {
-                const currentUrl = window.location.href;
-                document.getElementById('qrImageImg').src = `https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=${encodeURIComponent(currentUrl)}`;
-                openModal(qrModal);
+            document.getElementById('closeModalQR').addEventListener('click', () => {
+                modalQR.classList.remove('active');
             });
-            document.getElementById('closeQR').addEventListener('click', () => closeModal(qrModal));
-            document.getElementById('btnCloseQRBtn').addEventListener('click', () => closeModal(qrModal));
 
-            // Cerrar modales al hacer clic fuera del contenedor
+            // Cerrar modales al hacer clic fuera del card
             window.addEventListener('click', (e) => {
-                if (e.target === catalogModal) closeModal(catalogModal);
-                if (e.target === techModal) closeModal(techModal);
-                if (e.target === orderModal) closeModal(orderModal);
-                if (e.target === qrModal) closeModal(qrModal);
+                if (e.target === modalInstructions) modalInstructions.classList.remove('active');
+                if (e.target === modalQR) modalQR.classList.remove('active');
             });
 
-            // 3. Renderizar Catálogo Dinámico
-            function renderCatalog() {
-                const grid = document.getElementById('catalogProductsGrid');
-                grid.innerHTML = '';
-
-                productosData.forEach(prod => {
-                    const card = document.createElement('div');
-                    card.className = 'product-card-item';
-                    card.innerHTML = `
-                        <div class="product-img-box">
-                            <img src="${prod.imagen}" alt="${prod.nombre}" class="product-img">
-                        </div>
-                        <div class="product-info-row">
-                            <span class="product-name">${prod.nombre}</span>
-                            <span class="product-price">${prod.precioFormateado}</span>
-                        </div>
-                        <p class="product-desc">${prod.descripcionCorta}</p>
-                        <div class="product-actions">
-                            <button class="btn-outline" onclick="openTechModal(${prod.id})">Ficha técnica</button>
-                            <button class="btn btn-success" style="padding:8px 12px; font-size:11px;" onclick="selectProductAndOrder(${prod.id})">Agregar pedido</button>
-                        </div>
-                    `;
-                    grid.appendChild(card);
-                });
-            }
-
-            window.selectProductAndOrder = function(id) {
-                productoSeleccionadoId = id;
-                closeModal(catalogModal);
-                updateOrderSummary(id);
-                openModal(orderModal);
-            }
-
-            // 4. Renderizar Ficha Técnica Interactiva
-            function renderTechDetails(id) {
-                const prod = productosData.find(p => p.id === id);
-                const container = document.getElementById('techContentDetails');
-
-                let beneficiosHtml = prod.beneficios.map(b => `<li style="font-size:11px; color:#475569; display:flex; align-items:center; gap:6px;"><i class="fa-solid fa-check" style="color:var(--green);"></i> ${b}</li>`).join('');
-
-                container.innerHTML = `
-                    <div style="display:flex; flex-direction:column; gap:12px;">
-                        <div style="width:100%; height:200px; border-radius:16px; overflow:hidden; border:1px solid var(--gray-border); background:#fff; display:flex; align-items:center; justify-content:center; padding:10px;">
-                            <img src="${prod.imagen}" alt="${prod.nombre}" style="max-width:100%; max-height:100%; object-fit:contain;">
-                        </div>
-                        <div style="display:flex; justify-content:space-between; align-items:center;">
-                            <h3 style="font-size:15px; font-weight:700; color:var(--text);">${prod.nombre}</h3>
-                            <span style="font-size:14px; font-weight:700; color:var(--primary);">${prod.precioFormateado}</span>
-                        </div>
-                        <p style="font-size:11px; color:#64748b; line-height:1.5;">${prod.descripcionLarga}</p>
-                        
-                        <div>
-                            <span style="font-size:11px; font-weight:700; color:var(--primary); text-transform:uppercase; letter-spacing:0.5px;">Beneficios Clave</span>
-                            <ul style="list-style:none; margin-top:6px; display:flex; flex-direction:column; gap:4px; background:var(--gray-light); padding:10px; border-radius:12px; border:1px solid var(--gray-border);">
-                                ${beneficiosHtml}
-                            </ul>
-                        </div>
-
-                        <div>
-                            <span style="font-size:11px; font-weight:700; color:var(--primary); text-transform:uppercase; letter-spacing:0.5px;">Especificaciones Técnicas</span>
-                            <div class="specs-list">
-                                <div class="spec-row"><span class="spec-label">Carcasa:</span><span class="spec-val">${prod.especificaciones.carcasa}</span></div>
-                                <div class="spec-row"><span class="spec-label">Colores:</span><span class="spec-val">${prod.especificaciones.colores}</span></div>
-                                <div class="spec-row"><span class="spec-label">Medidas:</span><span class="spec-val">${prod.especificaciones.medidas}</span></div>
-                                <div class="spec-row"><span class="spec-label">Cap. Purificación:</span><span class="spec-val">${prod.especificaciones.capacidadPurificacion}</span></div>
-                                <div class="spec-row"><span class="spec-label">Cap. Ozonización:</span><span class="spec-val">${prod.especificaciones.capacidadOzonizacion}</span></div>
-                                <div class="spec-row"><span class="spec-label">Peso:</span><span class="spec-val">${prod.especificaciones.peso}</span></div>
-                                <div class="spec-row"><span class="spec-label">Consumo:</span><span class="spec-val">${prod.especificaciones.consumoElectrico}</span></div>
-                                <div class="spec-row"><span class="spec-label">Aplicaciones:</span><span class="spec-val">${prod.especificaciones.aplicaciones}</span></div>
-                            </div>
-                        </div>
-
-                        <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:8px;">
-                            <button class="btn btn-success" style="padding:10px; font-size:11px;" onclick="closeTechAndOrder(${prod.id})">Agregar pedido</button>
-                            <a href="${EmpresaData.sitioWeb}" target="_blank" class="btn-outline" style="display:flex; align-items:center; justify-content:center; text-decoration:none;">Sitio Web</a>
-                        </div>
-                    </div>
-                `;
-            }
-
-            window.closeTechAndOrder = function(id) {
-                closeModal(techModal);
-                productoSeleccionadoId = id;
-                updateOrderSummary(id);
-                openModal(orderModal);
-            }
-
-            // 5. Formulario de Pedidos y Cantidades
-            function updateOrderSummary(id) {
-                const prod = productosData.find(p => p.id === id);
-                document.getElementById('summaryProductName').innerText = prod.nombre;
-                document.getElementById('summaryProductPrice').innerText = prod.precioFormateado;
-                document.getElementById('summaryProductImg').src = prod.imagen;
-                cantidadPedido = 1;
-                document.getElementById('qtyValue').innerText = cantidadPedido;
-            }
-
-            document.getElementById('qtyPlus').addEventListener('click', () => {
-                cantidadPedido++;
-                document.getElementById('qtyValue').innerText = cantidadPedido;
-            });
-
-            document.getElementById('qtyMinus').addEventListener('click', () => {
-                if (cantidadPedido > 1) {
-                    cantidadPedido--;
-                    document.getElementById('qtyValue').innerText = cantidadPedido;
-                }
-            });
-
-            // Enviar pedido por WhatsApp
-            document.getElementById('orderForm').addEventListener('submit', (e) => {
-                e.preventDefault();
-                const name = document.getElementById('clientName').value;
-                const phone = document.getElementById('clientPhone').value;
-                const address = document.getElementById('clientAddress').value;
-                const neighborhood = document.getElementById('clientNeighborhood').value;
-                const notes = document.getElementById('clientNotes').value;
-                const prod = productosData.find(p => p.id === productoSeleccionadoId);
-
-                let message = `*NUEVO PEDIDO - ${EmpresaData.nombre}*\n\n`;
-                message += `👤 *Cliente:* ${name}\n`;
-                message += `📞 *Teléfono:* ${phone}\n`;
-                message += `📍 *Dirección:* ${address} ${neighborhood ? '('+neighborhood+')' : ''}\n\n`;
-                message += `🛒 *PRODUCTO SOLICITADO:*\n`;
-                message += `• ${prod.nombre} x ${cantidadPedido} unidad(es)\n\n`;
-                if(notes) message += `📝 *Observaciones:* ${notes}\n\n`;
-                message += `━━━━━━━━━━━━━━━━━━━━━━\n`;
-                message += `📌 *SOLICITUD DE PEDIDO*\n\n`;
-                message += `Agradezco la cotización de este pedido.\n\n`;
-                message += `Quedo atento(a) a la confirmación de disponibilidad de los productos, al valor total de la compra y al costo del domicilio para continuar con el proceso.\n\n`;
-                message += `Muchas gracias.\n`;
-                message += `━━━━━━━━━━━━━━━━━━━━━━`;
-
-                const encodedMessage = encodeURIComponent(message);
-                const whatsappUrl = `https://wa.me/57${EmpresaData.whatsapp}?text=${encodedMessage}`;
-                
-                window.open(whatsappUrl, '_blank');
-                closeModal(orderModal);
-            });
-
-            // 6. Funciones de Compartir y Guardar Contacto (.VCF)
-            document.getElementById('btnShare').addEventListener('click', () => {
-                if (navigator.share) {
-                    navigator.share({
-                        title: EmpresaData.nombre,
-                        text: EmpresaData.descripcion,
-                        url: window.location.href,
-                    }).catch(() => {});
-                } else {
-                    const dummy = document.createElement('input');
-                    document.body.appendChild(dummy);
-                    dummy.value = window.location.href;
-                    dummy.select();
+            // Botón Copiar Enlace QR
+            document.getElementById('btnCopyLink').addEventListener('click', () => {
+                const input = document.getElementById('cardUrlInput');
+                input.select();
+                input.setSelectionRange(0, 99999);
+                try {
                     document.execCommand('copy');
-                    document.body.removeChild(dummy);
                     showToast('¡Enlace copiado al portapapeles!');
+                } catch (err) {
+                    showToast('No se pudo copiar automáticamente.');
                 }
             });
 
-            document.getElementById('btnSave').addEventListener('click', () => {
-                const vcard = `BEGIN:VCARD
+            // Botones en ETAPA 1 (Preparados para futuras etapas)
+            document.getElementById('btnOrder').addEventListener('click', () => {
+                showToast('Módulo de pedidos en desarrollo (Etapa 2)');
+            });
+
+            document.getElementById('btnCatalog').addEventListener('click', () => {
+                showToast('Catálogo digital en desarrollo (Próxima etapa)');
+            });
+
+            // Guardar Contacto (Generación de VCF)
+            document.getElementById('btnSaveContact').addEventListener('click', () => {
+                const vcfData = `BEGIN:VCARD
 VERSION:3.0
-FN:${EmpresaData.nombre}
-ORG:${EmpresaData.nombre}
-TEL;TYPE=WORK,VOICE:${EmpresaData.telefono}
-URL:${EmpresaData.sitioWeb}
-NOTE:${EmpresaData.descripcion}
+FN:Ozonica de Colombia S.A.S.
+ORG:Ozonica de Colombia S.A.S.;
+TEL;TYPE=WORK,VOICE:+573185646939
+URL:https://www.ozonicadecolombia.com/
+NOTE:Purificadores de agua a base de ozono y baterías de acero inoxidable.
 END:VCARD`;
 
-                const blob = new Blob([vcard], { type: 'text/vcard;charset=utf-8' });
+                const blob = new Blob([vcfData], { type: 'text/vcard;charset=utf-8' });
                 const url = window.URL.createObjectURL(blob);
                 const a = document.createElement('a');
                 a.href = url;
-                a.download = 'Ozonica_de_Colombia.vcf';
+                a.download = 'Ozonica_Contacto.vcf';
                 document.body.appendChild(a);
                 a.click();
                 document.body.removeChild(a);
-                showToast('¡Contacto guardado con éxito!');
+                window.URL.revokeObjectURL(url);
+                showToast('¡Contacto VCF generado exitosamente!');
             });
 
-            function showToast(text) {
-                const toast = document.getElementById('toastNotification');
-                toast.innerText = text;
-                toast.classList.add('show');
-                setTimeout(() => {
-                    toast.classList.remove('show');
-                }, 3000);
+            // Funcionalidad PWA (BeforeInstallPrompt y Standalone Check)
+            let deferredPrompt;
+            const installBtn = document.getElementById('btnInstallApp');
+            const installSection = document.getElementById('installSection');
+            const installPromptContainer = document.getElementById('installPromptContainer');
+            const installedContainer = document.getElementById('installedContainer');
+
+            // Detectar si ya está instalada en modo standalone
+            if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true) {
+                installPromptContainer.style.display = 'none';
+                installedContainer.style.display = 'block';
             }
 
+            window.addEventListener('beforeinstallprompt', (e) => {
+                e.preventDefault();
+                deferredPrompt = e;
+                installPromptContainer.style.display = 'block';
+            });
+
+            installBtn.addEventListener('click', async () => {
+                if (deferredPrompt) {
+                    deferredPrompt.prompt();
+                    const { outcome } = await deferredPrompt.userChoice;
+                    if (outcome === 'accepted') {
+                        showToast('¡Gracias por instalar Ozonica!');
+                        installPromptContainer.style.display = 'none';
+                        installedContainer.style.display = 'block';
+                    }
+                    deferredPrompt = null;
+                } else {
+                    // Si no hay evento prompt nativo disponible, abrir instrucciones manuales
+                    modalInstructions.classList.add('active');
+                }
+            });
+
+            // Registro de Service Worker
+            if ('serviceWorker' in navigator) {
+                window.addEventListener('load', () => {
+                    navigator.serviceWorker.register('./service-worker.js')
+                        .then(reg => console.log('ServiceWorker registrado con éxito, scope:', reg.scope))
+                        .catch(err => console.log('Error al registrar ServiceWorker:', err));
+                });
+            }
         });
     </script>
 </body>
