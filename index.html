@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -49,6 +50,10 @@
             padding: 20px 10px;
         }
 
+        body.modal-open {
+            overflow: hidden;
+        }
+
         .card-container {
             width: 100%;
             max-width: 480px;
@@ -74,11 +79,28 @@
             display: block;
         }
 
+        /* Panel de información superpuesto sobre el banner. */
+        .main-panel {
+            background: var(--panel-bg);
+            padding: 0 24px 35px 24px;
+            border-top-left-radius: 32px;
+            border-top-right-radius: 32px;
+            margin-top: -50px;
+            position: relative;
+            z-index: 5;
+            text-align: center;
+            box-shadow: var(--shadow-soft), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(11, 60, 93, 0.05);
+            border-bottom: none;
+        }
+
+        /* Perfil dentro del panel */
         .profile-container {
             display: flex;
             justify-content: center;
             position: relative;
-            margin-top: -55px;
+            margin-top: -80px;
+            margin-bottom: 14px;
             z-index: 10;
         }
 
@@ -88,26 +110,15 @@
             border-radius: 50%;
             object-fit: cover;
             border: 4px solid var(--white);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
             background-color: var(--white);
-        }
-
-        .main-panel {
-            background: var(--panel-bg);
-            padding: 15px 24px 35px 24px;
-            border-top-left-radius: 32px;
-            border-top-right-radius: 32px;
-            margin-top: -15px;
-            position: relative;
-            z-index: 5;
-            text-align: center;
         }
 
         .company-name {
             font-size: 1.5rem;
             font-weight: 800;
             color: var(--primary-blue);
-            margin-top: 8px;
+            margin-top: 0;
             letter-spacing: -0.5px;
         }
 
@@ -165,12 +176,23 @@
         .btn-order {
             background-color: var(--accent-green);
             color: var(--white);
+            position: relative;
         }
 
         .btn-order:hover {
             background-color: var(--accent-green-hover);
             transform: translateY(-2px);
             box-shadow: var(--shadow-hover);
+        }
+
+        .cart-badge {
+            background: var(--white);
+            color: var(--accent-green-hover);
+            font-size: 0.75rem;
+            padding: 2px 7px;
+            border-radius: 10px;
+            font-weight: 800;
+            display: none;
         }
 
         .interaction-prompt {
@@ -192,7 +214,7 @@
         .secondary-actions.last-row {
             grid-template-columns: repeat(2, 1fr);
             max-width: 85%;
-            margin: 0 auto 25px auto;
+            margin: 0 auto 18px auto;
         }
 
         .secondary-btn {
@@ -230,66 +252,33 @@
             box-shadow: 0 6px 15px rgba(11, 60, 93, 0.08);
         }
 
-        .install-section {
-            margin-top: 20px;
-            border-top: 1px dashed rgba(11, 60, 93, 0.15);
-            padding-top: 20px;
-        }
-
-        .install-btn {
-            background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
-            color: var(--white);
-            width: 100%;
-            padding: 14px;
-            border-radius: var(--radius-btn);
-            font-weight: 700;
-            font-size: 0.9rem;
-            border: none;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            box-shadow: 0 4px 12px rgba(11,60,93,0.15);
-            transition: all 0.2s ease;
-        }
-
-        .install-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-hover);
-        }
-
-        .install-manual-link {
-            display: inline-block;
-            margin-top: 10px;
-            font-size: 0.8rem;
-            color: var(--secondary-blue);
-            text-decoration: underline;
-            background: none;
-            border: none;
-            cursor: pointer;
-            font-weight: 600;
-        }
-
-        .install-manual-link:hover {
-            color: var(--primary-blue);
-        }
-
-        .installed-badge {
+        /* Enlace discreto para instalar tarjeta */
+        .install-card-link {
             display: inline-flex;
             align-items: center;
+            justify-content: center;
             gap: 6px;
-            color: var(--accent-green);
+            font-size: 0.82rem;
             font-weight: 700;
-            font-size: 0.85rem;
-            background: rgba(46, 204, 113, 0.1);
-            padding: 8px 16px;
-            border-radius: 20px;
-            margin-top: 5px;
+            color: var(--secondary-blue);
+            background: var(--light-blue);
+            padding: 10px 16px;
+            border-radius: 12px;
+            text-decoration: none;
+            margin-bottom: 20px;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            border: 1px solid rgba(29, 111, 165, 0.15);
+        }
+
+        .install-card-link:hover {
+            background: var(--primary-blue);
+            color: var(--white);
+            transform: translateY(-1px);
         }
 
         .footer {
-            margin-top: 25px;
+            margin-top: 10px;
             padding-top: 15px;
             border-top: 1px solid rgba(11, 60, 93, 0.08);
             font-size: 0.75rem;
@@ -311,13 +300,13 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(6, 36, 56, 0.7);
+            background: rgba(6, 36, 56, 0.75);
             backdrop-filter: blur(5px);
             z-index: 1000;
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 20px;
+            padding: 16px;
             opacity: 0;
             pointer-events: none;
             transition: opacity 0.3s ease;
@@ -331,9 +320,9 @@
         .modal-card {
             background: var(--white);
             width: 100%;
-            max-width: 400px;
+            max-width: 420px;
             border-radius: 24px;
-            padding: 24px;
+            padding: 20px;
             box-shadow: 0 25px 50px rgba(0,0,0,0.25);
             transform: translateY(20px);
             transition: transform 0.3s ease;
@@ -390,20 +379,354 @@
             line-height: 1.6;
         }
 
-        .modal-body h4 {
-            color: var(--secondary-blue);
-            margin: 12px 0 6px 0;
-            font-size: 0.95rem;
+        /* Estilos específicos para el Catálogo */
+        .catalog-modal-card {
+            max-width: 460px;
+            max-height: 88vh;
+            display: flex;
+            flex-direction: column;
+            padding: 24px;
+        }
+
+        .catalog-body {
+            overflow-y: auto;
+            max-height: calc(88vh - 110px);
+            padding-right: 4px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .product-card {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 18px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            transition: box-shadow 0.2s;
+        }
+
+        .product-card:hover {
+            box-shadow: 0 6px 20px rgba(11,60,93,0.08);
+        }
+
+        .product-image-container {
+            width: 100%;
+            height: 190px;
+            background: #ffffff;
+            border-radius: 12px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #edf2f7;
+        }
+
+        .product-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .product-info {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .product-name {
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: var(--primary-blue);
+        }
+
+        .product-description {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        .product-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 4px;
+            gap: 10px;
+        }
+
+        .product-price {
+            font-size: 1.15rem;
+            font-weight: 800;
+            color: var(--accent-green-hover);
+        }
+
+        .btn-tech-sheet {
+            background-color: var(--secondary-blue);
+            color: var(--white);
+            border: none;
+            padding: 10px 14px;
+            border-radius: 10px;
             font-weight: 700;
+            font-size: 0.8rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: background-color 0.2s, transform 0.1s;
         }
 
-        .modal-body ol {
-            padding-left: 18px;
+        .btn-tech-sheet:hover {
+            background-color: var(--primary-blue);
+            transform: translateY(-1px);
+        }
+
+        /* Modal Ficha Técnica */
+        .tech-modal-card {
+            max-width: 480px;
+            max-height: 90vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .tech-body {
+            overflow-y: auto;
+            max-height: calc(90vh - 100px);
+            text-align: center;
+            padding: 10px 0;
+        }
+
+        .tech-image {
+            width: 100%;
+            height: auto;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        /* Estilos específicos para Hacer Pedido / Carrito */
+        .order-modal-card {
+            max-width: 480px;
+            max-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            padding: 24px;
+        }
+
+        .order-body {
+            overflow-y: auto;
+            max-height: calc(90vh - 110px);
+            padding-right: 4px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .order-section-title {
+            font-size: 0.95rem;
+            font-weight: 800;
+            color: var(--primary-blue);
             margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 2px solid var(--light-blue);
+            padding-bottom: 5px;
         }
 
-        .modal-body li {
-            margin-bottom: 6px;
+        .order-products-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .order-product-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 14px;
+            padding: 10px;
+        }
+
+        .order-product-thumb {
+            width: 60px;
+            height: 60px;
+            border-radius: 10px;
+            object-fit: cover;
+            border: 1px solid #edf2f7;
+            background: #fff;
+        }
+
+        .order-product-details {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .order-product-name {
+            font-size: 0.95rem;
+            font-weight: 800;
+            color: var(--primary-blue);
+        }
+
+        .order-product-price {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--accent-green-hover);
+        }
+
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .qty-btn {
+            background: var(--primary-blue);
+            color: var(--white);
+            border: none;
+            width: 28px;
+            height: 28px;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+        }
+
+        .qty-btn:hover {
+            background: var(--secondary-blue);
+        }
+
+        .qty-value {
+            font-weight: 800;
+            font-size: 0.95rem;
+            min-width: 20px;
+            text-align: center;
+            color: var(--text-dark);
+        }
+
+        .order-summary-box {
+            background: var(--light-blue);
+            border-radius: 14px;
+            padding: 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            border: 1px solid rgba(29, 111, 165, 0.15);
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.88rem;
+            color: var(--text-dark);
+        }
+
+        .summary-row.total {
+            font-size: 1.05rem;
+            font-weight: 800;
+            color: var(--primary-blue);
+            border-top: 1px dashed rgba(11, 60, 93, 0.2);
+            padding-top: 8px;
+            margin-top: 4px;
+        }
+
+        .summary-row.shipping {
+            font-style: italic;
+            color: var(--text-muted);
+            font-size: 0.82rem;
+        }
+
+        .form-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .form-label {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+        }
+
+        .form-input, .form-textarea {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 10px;
+            font-size: 0.88rem;
+            background: #f8fafc;
+            color: var(--text-dark);
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .form-input:focus, .form-textarea:focus {
+            border-color: var(--secondary-blue);
+            background: #fff;
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 70px;
+        }
+
+        .order-actions-container {
+            display: flex;
+            gap: 10px;
+            margin-top: 5px;
+        }
+
+        .btn-empty-cart {
+            background: #f1f5f9;
+            color: var(--text-muted);
+            border: 1px solid #cbd5e1;
+            padding: 12px 14px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-empty-cart:hover {
+            background: #e2e8f0;
+            color: var(--text-dark);
+        }
+
+        .btn-send-whatsapp {
+            flex: 1;
+            background: var(--whatsapp-green);
+            color: var(--white);
+            border: none;
+            padding: 12px 16px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: 0 4px 12px rgba(37, 211, 102, 0.25);
+            transition: transform 0.2s, background 0.2s;
+        }
+
+        .btn-send-whatsapp:hover {
+            background: #20ba5a;
+            transform: translateY(-1px);
         }
 
         /* QR Modal specific */
@@ -447,6 +770,76 @@
             background: var(--primary-blue);
         }
 
+        /* Estilos específicos para el Modal de Instalación */
+        .install-modal-card {
+            max-width: 440px;
+            max-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            padding: 24px;
+        }
+
+        .install-body {
+            overflow-y: auto;
+            max-height: calc(90vh - 100px);
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            padding-right: 4px;
+        }
+
+        .install-intro {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+            margin-bottom: 4px;
+        }
+
+        .install-card-box {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .install-os-title {
+            font-size: 0.95rem;
+            font-weight: 800;
+            color: var(--primary-blue);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .install-os-title i {
+            font-size: 1.2rem;
+            color: var(--secondary-blue);
+        }
+
+        .install-steps-list {
+            padding-left: 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            font-size: 0.85rem;
+            color: var(--text-dark);
+            line-height: 1.5;
+        }
+
+        .install-note {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            font-style: italic;
+            background: var(--light-blue);
+            padding: 8px 12px;
+            border-radius: 8px;
+            border-left: 3px solid var(--secondary-blue);
+            margin-top: 4px;
+        }
+
         /* Notification toast */
         .toast {
             position: fixed;
@@ -461,7 +854,7 @@
             font-weight: 600;
             box-shadow: 0 10px 25px rgba(0,0,0,0.2);
             transition: transform 0.3s ease;
-            z-index: 2000;
+            z-index: 2500;
             display: flex;
             align-items: center;
             gap: 8px;
@@ -482,20 +875,19 @@
     </style>
 </head>
 <body>
-
     <div class="card-container">
         <!-- Banner Oficial -->
         <div class="banner-container">
             <img class="banner" src="https://i.postimg.cc/TYS2G6mb/Whats-App-Image-2026-08-06-at-8-54-52-PM.jpg" alt="Banner Ozonica" crossorigin="anonymous">
         </div>
 
-        <!-- Foto de Perfil / Logo Superpuesto -->
-        <div class="profile-container">
-            <img class="profile-image" src="https://i.postimg.cc/GpJPyzx0/ozonica-logo.png" alt="Ozonica Logo" crossorigin="anonymous">
-        </div>
-
-        <!-- Panel Principal con Degradado Sutil -->
+        <!-- Panel Principal con Degradado Sutil, superpuesto al banner -->
         <div class="main-panel">
+            <!-- Foto de Perfil / Logo, en la transición banner -> panel -->
+            <div class="profile-container">
+                <img class="profile-image" src="https://i.postimg.cc/GpJPyzx0/ozonica-logo.png" alt="Ozonica Logo" crossorigin="anonymous">
+            </div>
+
             <h1 class="company-name" id="companyName">OZONICA DE COLOMBIA S.A.S.</h1>
             <p class="company-tagline">Vive al Natural</p>
             <p class="company-description" id="companyDescription">
@@ -508,7 +900,7 @@
                     <i class="fa-solid fa-phone"></i> LLAMAR
                 </a>
                 <button class="action-button btn-order" id="btnOrder">
-                    <i class="fa-solid fa-cart-shopping"></i> HACER PEDIDO
+                    <i class="fa-solid fa-cart-shopping"></i> HACER PEDIDO <span class="cart-badge" id="cartBadge">0</span>
                 </button>
             </div>
 
@@ -542,19 +934,11 @@
                 </button>
             </div>
 
-            <!-- Sección PWA Instalar App -->
-            <div class="install-section" id="installSection">
-                <div id="installPromptContainer">
-                    <button class="install-btn" id="btnInstallApp">
-                        <i class="fa-solid fa-download"></i> INSTALAR APP OZONICA
-                    </button>
-                    <button class="install-manual-link" id="btnManualInstructions">Ver instrucciones de instalación</button>
-                </div>
-                <div id="installedContainer" style="display: none;">
-                    <div class="installed-badge">
-                        <i class="fa-solid fa-circle-check"></i> ✓ OZONICA YA ESTÁ INSTALADA
-                    </div>
-                </div>
+            <!-- Enlace de instalación de la tarjeta -->
+            <div>
+                <a class="install-card-link" id="btnInstallCard">
+                    <i class="fa-solid fa-mobile-screen-button"></i> ¿Cómo instalar esta tarjeta en tu dispositivo?
+                </a>
             </div>
 
             <!-- Footer Corporativo -->
@@ -565,37 +949,90 @@
         </div>
     </div>
 
-    <!-- Modal Instrucciones de Instalación PWA -->
-    <div class="modal-overlay" id="modalInstructions">
-        <div class="modal-card">
+    <!-- Modal Catálogo -->
+    <div class="modal-overlay" id="modalCatalog">
+        <div class="modal-card catalog-modal-card">
             <div class="modal-header">
-                <h3 class="modal-title"><i class="fa-solid fa-mobile-screen-button"></i> ¿Cómo instalar en mi dispositivo?</h3>
-                <button class="modal-close" id="closeModalInstructions"><i class="fa-solid fa-xmark"></i></button>
+                <h3 class="modal-title"><i class="fa-solid fa-bag-shopping"></i> CATÁLOGO</h3>
+                <button class="modal-close" id="closeModalCatalog"><i class="fa-solid fa-xmark"></i></button>
             </div>
-            <div class="modal-body">
-                <h4>ANDROID (Google Chrome)</h4>
-                <ol>
-                    <li>Abre la tarjeta en Google Chrome.</li>
-                    <li>Toca los tres puntos arriba a la derecha.</li>
-                    <li>Selecciona "Agregar a pantalla de inicio" o "Instalar aplicación".</li>
-                    <li>Confirma la instalación.</li>
-                </ol>
+            <div class="modal-body catalog-body" id="catalogProductsContainer">
+                <!-- Los productos se cargan dinámicamente desde PRODUCTS -->
+            </div>
+        </div>
+    </div>
 
-                <h4>WINDOWS (Chrome / Edge)</h4>
-                <ol>
-                    <li>Abre la tarjeta en tu navegador.</li>
-                    <li>Busca el icono de instalación <i class="fa-solid fa-desktop"></i> en la barra de direcciones o abre el menú del navegador.</li>
-                    <li>Selecciona "Instalar Ozonica".</li>
-                    <li>Confirma la instalación.</li>
-                </ol>
+    <!-- Modal Ficha Técnica -->
+    <div class="modal-overlay" id="modalTechSheet" style="z-index: 1100;">
+        <div class="modal-card tech-modal-card">
+            <div class="modal-header">
+                <h3 class="modal-title" id="techSheetTitle"><i class="fa-solid fa-file-lines"></i> Ficha Técnica</h3>
+                <button class="modal-close" id="closeModalTechSheet"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body tech-body">
+                <img src="" alt="Ficha Técnica" class="tech-image" id="techSheetImage" crossorigin="anonymous">
+            </div>
+        </div>
+    </div>
 
-                <h4>IPHONE / IPAD (Safari)</h4>
-                <ol>
-                    <li>Abre la tarjeta en Safari.</li>
-                    <li>Pulsa el botón Compartir <i class="fa-solid fa-arrow-up-from-bracket"></i> en la barra inferior.</li>
-                    <li>Desplázate y selecciona "Agregar a pantalla de inicio".</li>
-                    <li>Pulsa "Agregar" en la esquina superior.</li>
-                </ol>
+    <!-- Modal Hacer Pedido -->
+    <div class="modal-overlay" id="modalOrder">
+        <div class="modal-card order-modal-card">
+            <div class="modal-header">
+                <h3 class="modal-title"><i class="fa-solid fa-cart-shopping"></i> HACER PEDIDO</h3>
+                <button class="modal-close" id="closeModalOrder"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body order-body">
+                <!-- Productos dinámicos desde PRODUCTS -->
+                <div>
+                    <h4 class="order-section-title">1. Selecciona tus productos</h4>
+                    <div class="order-products-list" id="orderProductsContainer">
+                        <!-- Generado por JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Resumen y Totales -->
+                <div>
+                    <h4 class="order-section-title">2. Resumen del Pedido</h4>
+                    <div class="order-summary-box" id="orderSummaryBox">
+                        <!-- Generado por JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Datos del Cliente y Envío -->
+                <div>
+                    <h4 class="order-section-title">3. Datos de Envío y Contacto</h4>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label class="form-label" for="clientName">Nombre Completo *</label>
+                            <input type="text" id="clientName" class="form-input" placeholder="Ej. Juan Pérez">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="clientPhone">WhatsApp / Teléfono *</label>
+                            <input type="tel" id="clientPhone" class="form-input" placeholder="Ej. 3001234567">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="clientCity">Ciudad *</label>
+                            <input type="text" id="clientCity" class="form-input" placeholder="Ej. Medellín">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="clientAddress">Dirección de Entrega *</label>
+                            <input type="text" id="clientAddress" class="form-input" placeholder="Ej. Calle 50 # 45-20">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="clientNotes">Observaciones (Opcional)</label>
+                            <textarea id="clientNotes" class="form-textarea" placeholder="Ej. Entregar después de las 5:00 p.m."></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Acciones -->
+                <div class="order-actions-container">
+                    <button class="btn-empty-cart" id="btnEmptyCart">Vaciar Pedido</button>
+                    <button class="btn-send-whatsapp" id="btnSendWhatsapp">
+                        <i class="fa-brands fa-whatsapp" style="font-size: 1.1rem;"></i> Enviar Pedido por WhatsApp
+                    </button>
+                </div>
             </div>
         </div>
     </div>
@@ -618,13 +1055,61 @@
         </div>
     </div>
 
+    <!-- Modal Instalar Tarjeta Digital -->
+    <div class="modal-overlay" id="modalInstall">
+        <div class="modal-card install-modal-card">
+            <div class="modal-header">
+                <h3 class="modal-title"><i class="fa-solid fa-mobile-screen-button"></i> Instalar Tarjeta Digital</h3>
+                <button class="modal-close" id="closeModalInstall"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body install-body">
+                <p class="install-intro">
+                    Guarda la tarjeta digital de Ozonica en tu dispositivo para acceder rápidamente a nuestra información cuando la necesites.
+                </p>
+
+                <!-- Android Box -->
+                <div class="install-card-box">
+                    <div class="install-os-title">
+                        <i class="fa-brands fa-android" style="color: #3ddc84;"></i> CÓMO GUARDAR EN ANDROID
+                    </div>
+                    <ol class="install-steps-list">
+                        <li>Abre esta tarjeta en Google Chrome.</li>
+                        <li>Pulsa el menú de los tres puntos <strong>⋮</strong> en la parte superior derecha.</li>
+                        <li>Busca la opción <strong>"Agregar a pantalla de inicio"</strong> o <strong>"Instalar aplicación"</strong>, según la versión de Chrome.</li>
+                        <li>Pulsa <strong>"Agregar"</strong> o confirma la instalación.</li>
+                        <li>La tarjeta quedará disponible como acceso directo en tu pantalla de inicio.</li>
+                    </ol>
+                    <div class="install-note">
+                        Nota: Las opciones pueden variar ligeramente dependiendo del modelo del teléfono y la versión de Android.
+                    </div>
+                </div>
+
+                <!-- iOS Box -->
+                <div class="install-card-box">
+                    <div class="install-os-title">
+                        <i class="fa-brands fa-apple" style="color: #1e293b;"></i> CÓMO GUARDAR EN IPHONE / IOS
+                    </div>
+                    <ol class="install-steps-list">
+                        <li>Abre esta tarjeta utilizando <strong>Safari</strong>.</li>
+                        <li>Pulsa el botón <strong>"Compartir"</strong> <i class="fa-solid fa-arrow-up-from-bracket"></i> de Safari.</li>
+                        <li>Busca y selecciona <strong>"Añadir a pantalla de inicio"</strong>.</li>
+                        <li>Pulsa <strong>"Añadir"</strong> para confirmar.</li>
+                        <li>La tarjeta quedará disponible como acceso directo en la pantalla de inicio de tu iPhone.</li>
+                    </ol>
+                    <div class="install-note">
+                        Nota: En iPhone se recomienda utilizar Safari para realizar este proceso correctamente.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Toast de Notificación -->
     <div class="toast" id="toastMessage">
         <i class="fa-solid fa-circle-check"></i> <span id="toastText">Acción realizada</span>
     </div>
 
     <script>
-        // Configuración Centralizada
         const CONFIG = {
             empresa: "OZONICA DE COLOMBIA S.A.S.",
             telefono: "573185646939",
@@ -636,7 +1121,65 @@
             fotoPerfil: "https://i.postimg.cc/GpJPyzx0/ozonica-logo.png"
         };
 
-        // Utilidad para mostrar notificaciones Toast
+        // ÚNICA FUENTE DE PRODUCTOS (Escalable y compartida por Catálogo y Carrito)
+        const PRODUCTS = [
+            {
+                id: 1,
+                nombre: "Diozon 9000",
+                precio: "$450.000",
+                imagen: "https://i.postimg.cc/KvJ4GN4n/Whats-App-Image-2026-08-06-at-6-00-59-PM.jpg",
+                descripcion: "El Diozon 9000 cuenta con una carcasa de acrílico inyectado de alta resistencia, con un diseño de líneas suaves y limpias. Disponible en blanco y beige."
+            },
+            {
+                id: 2,
+                nombre: "Diozon Drop",
+                precio: "$550.000",
+                imagen: "https://i.postimg.cc/pL3Wr1vK/Whats-App-Image-2026-08-06-at-6-00-59-PM-%281%29.jpg",
+                descripcion: "El Diozon Drop está construido en acero inoxidable de alta resistencia, ofreciendo durabilidad y un alto rendimiento para la purificación del agua."
+            },
+            {
+                id: 3,
+                nombre: "Media Luna",
+                precio: "$550.000",
+                imagen: "https://i.postimg.cc/RCGvK09w/Whats-App-Image-2026-08-06-at-6-00-59-PM-%282%29.jpg",
+                descripcion: "El modelo Media Luna combina una carcasa de acero inoxidable pulido con un diseño de curvas fluidas y estilizadas."
+            },
+            {
+                id: 4,
+                nombre: "Vaquita",
+                precio: "$450.000",
+                imagen: "https://i.postimg.cc/sXsRGkN4/Whats-App-Image-2026-08-06-at-6-00-59-PM-%284%29.jpg",
+                descripcion: "El modelo Vaquita combina un diseño original y distintivo con la tecnología de purificación de Ozonica."
+            },
+            {
+                id: 5,
+                nombre: "Vital Premium Mini",
+                precio: "$550.000",
+                imagen: "https://i.postimg.cc/8zv8Kk8P/Whats-App-Image-2026-08-06-at-6-00-59-PM-%285%29.jpg",
+                descripcion: "El Vital Premium Mini concentra tecnología de inyección de ozono en un formato compacto, ideal para cocinas con espacios reducidos."
+            },
+            {
+                id: 6,
+                nombre: "Vitro Touch",
+                precio: "$650.000",
+                imagen: "https://i.postimg.cc/Yq4T02Sr/Whats-App-Image-2026-08-06-at-6-01-00-PM.jpg",
+                descripcion: "El Vitro Touch combina vidrio templado y un diseño minimalista con un botón capacitivo retroiluminado."
+            }
+        ];
+
+        // Estado del carrito: almacena { [productId]: cantidad }
+        const cartState = {};
+
+        // Helper para parsear precio string a número
+        function parsePrice(priceStr) {
+            return parseInt(priceStr.replace(/[^0-9]/g, '')) || 0;
+        }
+
+        // Helper para formatear número a moneda colombiana
+        function formatCurrency(amount) {
+            return '$' + amount.toLocaleString('es-CO');
+        }
+
         function showToast(message) {
             const toast = document.getElementById('toastMessage');
             const toastText = document.getElementById('toastText');
@@ -647,33 +1190,345 @@
             }, 3000);
         }
 
+        function renderCatalog() {
+            const container = document.getElementById('catalogProductsContainer');
+            container.innerHTML = '';
+
+            PRODUCTS.forEach(product => {
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                card.innerHTML = `
+                    <div class="product-image-container">
+                        <img src="${product.imagen}" alt="${product.nombre}" class="product-image" crossorigin="anonymous">
+                    </div>
+                    <div class="product-info">
+                        <h4 class="product-name">${product.nombre}</h4>
+                        <p class="product-description">${product.descripcion}</p>
+                    </div>
+                    <div class="product-footer">
+                        <span class="product-price">${product.precio}</span>
+                        <button class="btn-tech-sheet" data-id="${product.id}">
+                            <i class="fa-solid fa-file-lines"></i> FICHA TÉCNICA
+                        </button>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+
+            container.querySelectorAll('.btn-tech-sheet').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const productId = parseInt(e.currentTarget.getAttribute('data-id'));
+                    const product = PRODUCTS.find(p => p.id === productId);
+                    if (product) {
+                        openTechSheet(product);
+                    }
+                });
+            });
+        }
+
+        // Abrir visor de ficha técnica
+        function openTechSheet(product) {
+            const modalTech = document.getElementById('modalTechSheet');
+            const techImage = document.getElementById('techSheetImage');
+            const techTitle = document.getElementById('techSheetTitle');
+
+            techImage.src = product.imagen;
+            techTitle.innerHTML = `<i class="fa-solid fa-file-lines"></i> Ficha Técnica: ${product.nombre}`;
+            modalTech.classList.add('active');
+        }
+
+        function renderOrderModule() {
+            const container = document.getElementById('orderProductsContainer');
+            container.innerHTML = '';
+
+            PRODUCTS.forEach(product => {
+                const currentQty = cartState[product.id] || 0;
+                const itemEl = document.createElement('div');
+                itemEl.className = 'order-product-item';
+                itemEl.innerHTML = `
+                    <img src="${product.imagen}" alt="${product.nombre}" class="order-product-thumb" crossorigin="anonymous">
+                    <div class="order-product-details">
+                        <span class="order-product-name">${product.nombre}</span>
+                        <span class="order-product-price">${product.precio}</span>
+                    </div>
+                    <div class="quantity-controls">
+                        <button class="qty-btn" type="button" onclick="updateQuantity(${product.id}, -1)">−</button>
+                        <span class="qty-value" id="qty-${product.id}">${currentQty}</span>
+                        <button class="qty-btn" type="button" onclick="updateQuantity(${product.id}, 1)">+</button>
+                    </div>
+                `;
+                container.appendChild(itemEl);
+            });
+
+            renderOrderSummary();
+        }
+
+        // Actualizar cantidades del carrito
+        window.updateQuantity = function(productId, change) {
+            const current = cartState[productId] || 0;
+            const updated = current + change;
+            if (updated < 0) return;
+
+            if (updated === 0) {
+                delete cartState[productId];
+            } else {
+                cartState[productId] = updated;
+            }
+
+            const qtyEl = document.getElementById(`qty-${productId}`);
+            if (qtyEl) {
+                qtyEl.textContent = cartState[productId] || 0;
+            }
+
+            renderOrderSummary();
+            updateCartBadge();
+        };
+
+        // Actualizar resumen y totales
+        function renderOrderSummary() {
+            const summaryBox = document.getElementById('orderSummaryBox');
+            let rowsHtml = '';
+            let totalPriceAmount = 0;
+
+            const selectedIds = Object.keys(cartState);
+
+            if (selectedIds.length === 0) {
+                summaryBox.innerHTML = `
+                    <div class="summary-row" style="color: var(--text-muted); text-align: center; display: block; padding: 10px 0;">
+                        No hay productos seleccionados todavía.
+                    </div>
+                `;
+                return;
+            }
+
+            selectedIds.forEach(id => {
+                const productId = parseInt(id);
+                const qty = cartState[productId];
+                const product = PRODUCTS.find(p => p.id === productId);
+                if (!product) return;
+
+                const unitPrice = parsePrice(product.precio);
+                const subtotal = unitPrice * qty;
+
+                totalPriceAmount += subtotal;
+
+                rowsHtml += `
+                    <div class="summary-row">
+                        <span>${product.nombre} (${qty} × ${product.precio})</span>
+                        <span style="font-weight: 700;">${formatCurrency(subtotal)}</span>
+                    </div>
+                `;
+            });
+
+            rowsHtml += `
+                <div class="summary-row shipping">
+                    <span>Domicilio de entrega:</span>
+                    <span>Por confirmar con el cliente</span>
+                </div>
+                <div class="summary-row total">
+                    <span>TOTAL PRODUCTOS:</span>
+                    <span>${formatCurrency(totalPriceAmount)}</span>
+                </div>
+            `;
+
+            summaryBox.innerHTML = rowsHtml;
+        }
+
+        // Actualizar badge del botón Hacer Pedido
+        function updateCartBadge() {
+            let totalUnits = 0;
+            Object.values(cartState).forEach(qty => {
+                totalUnits += qty;
+            });
+
+            const badge = document.getElementById('cartBadge');
+            if (totalUnits > 0) {
+                badge.textContent = totalUnits;
+                badge.style.display = 'inline-block';
+            } else {
+                badge.style.display = 'none';
+            }
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
-            // Asignar dinámicamente enlace actual al input de compartir QR
             const currentUrl = window.location.href;
-            document.getElementById('cardUrlInput').value = currentUrl;
+            const urlInput = document.getElementById('cardUrlInput');
+            if (urlInput) urlInput.value = currentUrl;
 
-            // Manejo de modales
-            const modalInstructions = document.getElementById('modalInstructions');
+            renderCatalog();
+            renderOrderModule();
+
+            // Referencias a modales
             const modalQR = document.getElementById('modalQR');
+            const modalCatalog = document.getElementById('modalCatalog');
+            const modalTechSheet = document.getElementById('modalTechSheet');
+            const modalOrder = document.getElementById('modalOrder');
+            const modalInstall = document.getElementById('modalInstall');
 
-            document.getElementById('btnManualInstructions').addEventListener('click', () => {
-                modalInstructions.classList.add('active');
-            });
-            document.getElementById('closeModalInstructions').addEventListener('click', () => {
-                modalInstructions.classList.remove('active');
-            });
-
+            // QR
             document.getElementById('btnShareQR').addEventListener('click', () => {
                 modalQR.classList.add('active');
+                document.body.classList.add('modal-open');
             });
             document.getElementById('closeModalQR').addEventListener('click', () => {
                 modalQR.classList.remove('active');
+                document.body.classList.remove('modal-open');
+            });
+
+            // Catálogo
+            document.getElementById('btnCatalog').addEventListener('click', () => {
+                modalCatalog.classList.add('active');
+                document.body.classList.add('modal-open');
+            });
+            document.getElementById('closeModalCatalog').addEventListener('click', () => {
+                modalCatalog.classList.remove('active');
+                document.body.classList.remove('modal-open');
+            });
+
+            // Ficha Técnica
+            document.getElementById('closeModalTechSheet').addEventListener('click', () => {
+                modalTechSheet.classList.remove('active');
+            });
+
+            // Hacer Pedido
+            document.getElementById('btnOrder').addEventListener('click', () => {
+                renderOrderModule();
+                modalOrder.classList.add('active');
+                document.body.classList.add('modal-open');
+            });
+            document.getElementById('closeModalOrder').addEventListener('click', () => {
+                modalOrder.classList.remove('active');
+                document.body.classList.remove('modal-open');
+            });
+
+            // Instalar Tarjeta Digital
+            const btnInstallCard = document.getElementById('btnInstallCard');
+            const closeModalInstall = document.getElementById('closeModalInstall');
+
+            if (btnInstallCard) {
+                btnInstallCard.addEventListener('click', () => {
+                    if (modalInstall) {
+                        modalInstall.classList.add('active');
+                        document.body.classList.add('modal-open');
+                    }
+                });
+            }
+
+            if (closeModalInstall) {
+                closeModalInstall.addEventListener('click', () => {
+                    if (modalInstall) {
+                        modalInstall.classList.remove('active');
+                        document.body.classList.remove('modal-open');
+                    }
+                });
+            }
+
+            // Vaciar Pedido
+            document.getElementById('btnEmptyCart').addEventListener('click', () => {
+                Object.keys(cartState).forEach(key => delete cartState[key]);
+                renderOrderModule();
+                updateCartBadge();
+                showToast('¡Pedido vaciado correctamente!');
+            });
+
+            // Enviar Pedido por WhatsApp
+            document.getElementById('btnSendWhatsapp').addEventListener('click', () => {
+                const selectedIds = Object.keys(cartState);
+                if (selectedIds.length === 0) {
+                    showToast('Selecciona al menos un producto.');
+                    return;
+                }
+
+                const name = document.getElementById('clientName').value.trim();
+                const phone = document.getElementById('clientPhone').value.trim();
+                const city = document.getElementById('clientCity').value.trim();
+                const address = document.getElementById('clientAddress').value.trim();
+                const notes = document.getElementById('clientNotes').value.trim();
+
+                if (!name) {
+                    showToast('Ingresa tu nombre completo.');
+                    document.getElementById('clientName').focus();
+                    return;
+                }
+                if (!phone) {
+                    showToast('Ingresa tu número de WhatsApp.');
+                    document.getElementById('clientPhone').focus();
+                    return;
+                }
+                if (!city) {
+                    showToast('Ingresa la ciudad de entrega.');
+                    document.getElementById('clientCity').focus();
+                    return;
+                }
+                if (!address) {
+                    showToast('Ingresa la dirección de entrega.');
+                    document.getElementById('clientAddress').focus();
+                    return;
+                }
+
+                // Construir mensaje dinámico
+                let message = "Hola Ozonica, quiero realizar el siguiente pedido:\n\n🛒 PEDIDO OZONICA\n\n";
+                
+                let index = 1;
+                let totalPriceAmount = 0;
+
+                selectedIds.forEach(id => {
+                    const productId = parseInt(id);
+                    const qty = cartState[productId];
+                    const product = PRODUCTS.find(p => p.id === productId);
+                    if (!product) return;
+
+                    const unitPrice = parsePrice(product.precio);
+                    const subtotal = unitPrice * qty;
+                    totalPriceAmount += subtotal;
+
+                    message += `${index}. ${product.nombre}\n`;
+                    message += `Cantidad: ${qty}\n`;
+                    message += `Precio unitario: ${product.precio}\n`;
+                    message += `Subtotal: ${formatCurrency(subtotal)}\n\n`;
+                    index++;
+                });
+
+                message += "━━━━━━━━━━━━━━━━\n\n";
+                message += `💰 TOTAL PRODUCTOS: ${formatCurrency(totalPriceAmount)}\n\n`;
+                message += "🚚 DOMICILIO:\nValor por confirmar con el cliente.\n\n";
+                message += "👤 DATOS DEL CLIENTE\n\n";
+                message += `Nombre: ${name}\n`;
+                message += `WhatsApp: ${phone}\n\n`;
+                message += "📍 DATOS DE ENTREGA\n\n";
+                message += `Ciudad: ${city}\n`;
+                message += `Dirección: ${address}\n`;
+
+                if (notes) {
+                    message += `\n📝 Observaciones:\n${notes}\n`;
+                }
+
+                const encodedMessage = encodeURIComponent(message);
+                const whatsappUrl = `https://wa.me/${CONFIG.telefono}?text=${encodedMessage}`;
+                window.open(whatsappUrl, '_blank');
             });
 
             // Cerrar modales al hacer clic fuera del card
             window.addEventListener('click', (e) => {
-                if (e.target === modalInstructions) modalInstructions.classList.remove('active');
-                if (e.target === modalQR) modalQR.classList.remove('active');
+                if (e.target === modalQR) {
+                    modalQR.classList.remove('active');
+                    document.body.classList.remove('modal-open');
+                }
+                if (e.target === modalCatalog) {
+                    modalCatalog.classList.remove('active');
+                    document.body.classList.remove('modal-open');
+                }
+                if (e.target === modalTechSheet) {
+                    modalTechSheet.classList.remove('active');
+                }
+                if (e.target === modalOrder) {
+                    modalOrder.classList.remove('active');
+                    document.body.classList.remove('modal-open');
+                }
+                if (e.target === modalInstall) {
+                    modalInstall.classList.remove('active');
+                    document.body.classList.remove('modal-open');
+                }
             });
 
             // Botón Copiar Enlace QR
@@ -689,26 +1544,9 @@
                 }
             });
 
-            // Botones en ETAPA 1 (Preparados para futuras etapas)
-            document.getElementById('btnOrder').addEventListener('click', () => {
-                showToast('Módulo de pedidos en desarrollo (Etapa 2)');
-            });
-
-            document.getElementById('btnCatalog').addEventListener('click', () => {
-                showToast('Catálogo digital en desarrollo (Próxima etapa)');
-            });
-
             // Guardar Contacto (Generación de VCF)
             document.getElementById('btnSaveContact').addEventListener('click', () => {
-                const vcfData = `BEGIN:VCARD
-VERSION:3.0
-FN:Ozonica de Colombia S.A.S.
-ORG:Ozonica de Colombia S.A.S.;
-TEL;TYPE=WORK,VOICE:+573185646939
-URL:https://www.ozonicadecolombia.com/
-NOTE:Purificadores de agua a base de ozono y baterías de acero inoxidable.
-END:VCARD`;
-
+                const vcfData = `BEGIN:VCARD\nVERSION:3.0\nFN:Ozonica de Colombia S.A.S.\nORG:Ozonica de Colombia S.A.S.\nTEL;TYPE=WORK,VOICE:+573185646939\nURL:https://www.ozonicadecolombia.com/\nNOTE:Purificadores de agua a base de ozono y baterías de acero inoxidable.\nEND:VCARD`;
                 const blob = new Blob([vcfData], { type: 'text/vcard;charset=utf-8' });
                 const url = window.URL.createObjectURL(blob);
                 const a = document.createElement('a');
@@ -720,50 +1558,6 @@ END:VCARD`;
                 window.URL.revokeObjectURL(url);
                 showToast('¡Contacto VCF generado exitosamente!');
             });
-
-            // Funcionalidad PWA (BeforeInstallPrompt y Standalone Check)
-            let deferredPrompt;
-            const installBtn = document.getElementById('btnInstallApp');
-            const installSection = document.getElementById('installSection');
-            const installPromptContainer = document.getElementById('installPromptContainer');
-            const installedContainer = document.getElementById('installedContainer');
-
-            // Detectar si ya está instalada en modo standalone
-            if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true) {
-                installPromptContainer.style.display = 'none';
-                installedContainer.style.display = 'block';
-            }
-
-            window.addEventListener('beforeinstallprompt', (e) => {
-                e.preventDefault();
-                deferredPrompt = e;
-                installPromptContainer.style.display = 'block';
-            });
-
-            installBtn.addEventListener('click', async () => {
-                if (deferredPrompt) {
-                    deferredPrompt.prompt();
-                    const { outcome } = await deferredPrompt.userChoice;
-                    if (outcome === 'accepted') {
-                        showToast('¡Gracias por instalar Ozonica!');
-                        installPromptContainer.style.display = 'none';
-                        installedContainer.style.display = 'block';
-                    }
-                    deferredPrompt = null;
-                } else {
-                    // Si no hay evento prompt nativo disponible, abrir instrucciones manuales
-                    modalInstructions.classList.add('active');
-                }
-            });
-
-            // Registro de Service Worker
-            if ('serviceWorker' in navigator) {
-                window.addEventListener('load', () => {
-                    navigator.serviceWorker.register('./service-worker.js')
-                        .then(reg => console.log('ServiceWorker registrado con éxito, scope:', reg.scope))
-                        .catch(err => console.log('Error al registrar ServiceWorker:', err));
-                });
-            }
         });
     </script>
 </body>
