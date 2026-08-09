@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -482,27 +481,87 @@
             transform: translateY(-1px);
         }
 
-        /* Modal Ficha Técnica */
+        /* Modal Ficha Técnica Dinámica */
         .tech-modal-card {
             max-width: 480px;
             max-height: 90vh;
             display: flex;
             flex-direction: column;
+            padding: 24px;
         }
 
         .tech-body {
             overflow-y: auto;
-            max-height: calc(90vh - 100px);
-            text-align: center;
-            padding: 10px 0;
+            max-height: calc(90vh - 110px);
+            padding-right: 4px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            text-align: left;
         }
 
-        .tech-image {
-            width: 100%;
-            height: auto;
-            border-radius: 12px;
+        .tech-subtitle {
+            font-size: 0.85rem;
+            font-weight: 800;
+            color: var(--secondary-blue);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            background: var(--light-blue);
+            padding: 6px 12px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        .tech-desc-box {
+            font-size: 0.88rem;
+            color: var(--text-dark);
+            line-height: 1.6;
+            background: #f8fafc;
             border: 1px solid #e2e8f0;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            border-radius: 12px;
+            padding: 14px;
+            font-style: italic;
+        }
+
+        .tech-specs-title {
+            font-size: 0.9rem;
+            font-weight: 800;
+            color: var(--primary-blue);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 4px;
+            border-bottom: 2px solid var(--light-blue);
+            padding-bottom: 6px;
+        }
+
+        .tech-specs-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+        }
+
+        .tech-specs-table tr {
+            border-bottom: 1px solid #edf2f7;
+        }
+
+        .tech-specs-table tr:last-child {
+            border-bottom: none;
+        }
+
+        .tech-specs-table td {
+            padding: 10px 8px;
+        }
+
+        .tech-spec-key {
+            font-weight: 700;
+            color: var(--primary-blue);
+            width: 45%;
+        }
+
+        .tech-spec-val {
+            color: var(--text-dark);
+            width: 55%;
+            text-align: right;
         }
 
         /* Estilos específicos para Hacer Pedido / Carrito */
@@ -962,15 +1021,15 @@
         </div>
     </div>
 
-    <!-- Modal Ficha Técnica -->
+    <!-- Modal Ficha Técnica Dinámica -->
     <div class="modal-overlay" id="modalTechSheet" style="z-index: 1100;">
         <div class="modal-card tech-modal-card">
             <div class="modal-header">
                 <h3 class="modal-title" id="techSheetTitle"><i class="fa-solid fa-file-lines"></i> Ficha Técnica</h3>
                 <button class="modal-close" id="closeModalTechSheet"><i class="fa-solid fa-xmark"></i></button>
             </div>
-            <div class="modal-body tech-body">
-                <img src="" alt="Ficha Técnica" class="tech-image" id="techSheetImage" crossorigin="anonymous">
+            <div class="modal-body tech-body" id="techSheetContent">
+                <!-- Contenido dinámico de ficha técnica -->
             </div>
         </div>
     </div>
@@ -983,7 +1042,6 @@
                 <button class="modal-close" id="closeModalOrder"><i class="fa-solid fa-xmark"></i></button>
             </div>
             <div class="modal-body order-body">
-                <!-- Productos dinámicos desde PRODUCTS -->
                 <div>
                     <h4 class="order-section-title">1. Selecciona tus productos</h4>
                     <div class="order-products-list" id="orderProductsContainer">
@@ -991,7 +1049,6 @@
                     </div>
                 </div>
 
-                <!-- Resumen y Totales -->
                 <div>
                     <h4 class="order-section-title">2. Resumen del Pedido</h4>
                     <div class="order-summary-box" id="orderSummaryBox">
@@ -999,7 +1056,6 @@
                     </div>
                 </div>
 
-                <!-- Datos del Cliente y Envío -->
                 <div>
                     <h4 class="order-section-title">3. Datos de Envío y Contacto</h4>
                     <div class="form-grid">
@@ -1026,7 +1082,6 @@
                     </div>
                 </div>
 
-                <!-- Acciones -->
                 <div class="order-actions-container">
                     <button class="btn-empty-cart" id="btnEmptyCart">Vaciar Pedido</button>
                     <button class="btn-send-whatsapp" id="btnSendWhatsapp">
@@ -1121,61 +1176,127 @@
             fotoPerfil: "https://i.postimg.cc/GpJPyzx0/ozonica-logo.png"
         };
 
-        // ÚNICA FUENTE DE PRODUCTOS (Escalable y compartida por Catálogo y Carrito)
+        // ÚNICA FUENTE DE PRODUCTOS (IDs estrictamente 1 al 6 en orden exacto)
         const PRODUCTS = [
             {
                 id: 1,
                 nombre: "Diozon 9000",
                 precio: "$450.000",
                 imagen: "https://i.postimg.cc/KvJ4GN4n/Whats-App-Image-2026-08-06-at-6-00-59-PM.jpg",
-                descripcion: "El Diozon 9000 cuenta con una carcasa de acrílico inyectado de alta resistencia, con un diseño de líneas suaves y limpias. Disponible en blanco y beige."
+                descripcion: "El Diozon 9000 cuenta con una carcasa de acrílico inyectado de alta resistencia, con un diseño de líneas suaves y limpias. Disponible en blanco y beige.",
+                linea: "Línea Acrílico Tecnológico",
+                material: "Acrílico inyectado Premium",
+                techDescription: "Armonía perfecta y terminaciones impecables. El Diozon 9000 está fabricado mediante acrílico inyectado de altísima resistencia, ofreciendo un cuerpo de líneas suaves y limpias. Disponible en tonos Blanco y Beige, se adapta armónicamente a cualquier estilo de interiorismo.",
+                specs: [
+                    { key: "Carcasa", val: "Acrílico Inyectado de alta densidad" },
+                    { key: "Colores Disponibles", val: "Blanco y Beige" },
+                    { key: "Medidas", val: "Alto 18.5 cm × Largo 29 cm × Ancho 10 cm" },
+                    { key: "Capacidad de Purificación", val: "180 Litros de agua por hora" },
+                    { key: "Capacidad de Ozonización", val: "0.75 Gramos por hora" },
+                    { key: "Peso", val: "1.5 Kilogramos" },
+                    { key: "Consumo Eléctrico", val: "25 Watts • 110 V" }
+                ]
             },
             {
                 id: 2,
                 nombre: "Diozon Drop",
                 precio: "$550.000",
                 imagen: "https://i.postimg.cc/pL3Wr1vK/Whats-App-Image-2026-08-06-at-6-00-59-PM-%281%29.jpg",
-                descripcion: "El Diozon Drop está construido en acero inoxidable de alta resistencia, ofreciendo durabilidad y un alto rendimiento para la purificación del agua."
+                descripcion: "El Diozon Drop está construido en acero inoxidable de alta resistencia, ofreciendo durabilidad y un alto rendimiento para la purificación del agua.",
+                linea: "Línea Acero Inoxidable",
+                material: "Acero inoxidable quirúrgico",
+                techDescription: "La máxima potencia purificadora envuelta en una coraza indestructible. Con su icónico detalle de gota que evoca el origen del agua pura, el Diozon Drop está construido para durar toda la vida gracias a su estructura de acero inoxidable, ofreciendo un altísimo rendimiento para familias exigentes.",
+                specs: [
+                    { key: "Carcasa", val: "Acero Inoxidable de alta resistencia" },
+                    { key: "Medidas", val: "Alto 9.5 cm × Largo 30 cm × Ancho 7 cm" },
+                    { key: "Capacidad de Purificación", val: "180 Litros de agua por hora" },
+                    { key: "Capacidad de Ozonización", val: "0.75 Gramos por hora" },
+                    { key: "Peso", val: "1.5 Kilogramos" },
+                    { key: "Consumo Eléctrico", val: "25 Watts • 110 V" }
+                ]
             },
             {
                 id: 3,
                 nombre: "Media Luna",
                 precio: "$550.000",
                 imagen: "https://i.postimg.cc/RCGvK09w/Whats-App-Image-2026-08-06-at-6-00-59-PM-%282%29.jpg",
-                descripcion: "El modelo Media Luna combina una carcasa de acero inoxidable pulido con un diseño de curvas fluidas y estilizadas."
+                descripcion: "El modelo Media Luna combina una carcasa de acero inoxidable pulido con un diseño de curvas fluidas y estilizadas.",
+                linea: "Línea Acero Inoxidable",
+                material: "Acero inoxidable estilizado",
+                techDescription: "Diseño arquitectónico y curvas fluidas. El purificador Media Luna redefine el concepto tradicional de filtración con una silueta aerodinámica y estilizada. Su robusta carcasa de acero pulido aporta un brillo sofisticado a los espacios más modernos del hogar.",
+                specs: [
+                    { key: "Carcasa", val: "Acero Inoxidable pulido" },
+                    { key: "Medidas", val: "Alto 9.5 cm × Largo 30 cm × Ancho 7 cm" },
+                    { key: "Capacidad de Purificación", val: "180 Litros de agua por hora" },
+                    { key: "Capacidad de Ozonización", val: "0.75 Gramos por hora" },
+                    { key: "Peso", val: "1.5 Kilogramos" },
+                    { key: "Consumo Eléctrico", val: "25 Watts • 110 V" }
+                ]
             },
             {
                 id: 4,
                 nombre: "Vaquita",
                 precio: "$450.000",
                 imagen: "https://i.postimg.cc/sXsRGkN4/Whats-App-Image-2026-08-06-at-6-00-59-PM-%284%29.jpg",
-                descripcion: "El modelo Vaquita combina un diseño original y distintivo con la tecnología de purificación de Ozonica."
+                descripcion: "El modelo Vaquita combina un diseño original y distintivo con la tecnología de purificación de Ozonica.",
+                linea: "Línea Temática Exclusiva",
+                material: "Acrílico inyectado de alta gama",
+                techDescription: "Un icono de originalidad y frescura para tu hogar. El modelo Vaquita combina una silueta divertida y carismática con la potencia tecnológica insuperable de los purificadores industriales de Ozonica. Es la opción preferida para llevar salud y diseño exclusivo a toda tu familia.",
+                specs: [
+                    { key: "Carcasa", val: "Acrílico Inyectado de alta gama" },
+                    { key: "Medidas", val: "Alto 25 cm × Largo 34 cm × Ancho 9.5 cm" },
+                    { key: "Capacidad de Purificación", val: "180 Litros de agua por hora" },
+                    { key: "Capacidad de Ozonización", val: "0.75 Gramos por hora" },
+                    { key: "Peso", val: "1.5 Kilogramos" },
+                    { key: "Consumo Eléctrico", val: "25 Watts • 110 V" }
+                ]
             },
             {
                 id: 5,
                 nombre: "Vital Premium Mini",
                 precio: "$550.000",
                 imagen: "https://i.postimg.cc/8zv8Kk8P/Whats-App-Image-2026-08-06-at-6-00-59-PM-%285%29.jpg",
-                descripcion: "El Vital Premium Mini concentra tecnología de inyección de ozono en un formato compacto, ideal para cocinas con espacios reducidos."
+                descripcion: "El Vital Premium Mini concentra tecnología de inyección de ozono en un formato compacto, ideal para cocinas con espacios reducidos.",
+                linea: "Línea Acero Compacto",
+                material: "Acero inoxidable reforzado",
+                techDescription: "Potencia descomunal en un formato optimizado. El Vital Premium Mini concentra toda la eficiencia tecnológica de la inyección de ozono en un tamaño ideal para cocinas compactas. Elegancia, robustez de acero y un flujo constante de salud para tu hogar.",
+                specs: [
+                    { key: "Carcasa", val: "Acero Inoxidable de alta densidad" },
+                    { key: "Medidas", val: "Alto 15 cm × Largo 27 cm × Ancho 10 cm" },
+                    { key: "Capacidad de Purificación", val: "180 Litros de agua por hora" },
+                    { key: "Capacidad de Ozonización", val: "0.75 Gramos por hora" },
+                    { key: "Peso", val: "1.8 Kilogramos" },
+                    { key: "Consumo Eléctrico", val: "25 Watts • 110 V" }
+                ]
             },
             {
                 id: 6,
                 nombre: "Vitro Touch",
                 precio: "$650.000",
                 imagen: "https://i.postimg.cc/Yq4T02Sr/Whats-App-Image-2026-08-06-at-6-01-00-PM.jpg",
-                descripcion: "El Vitro Touch combina vidrio templado y un diseño minimalista con un botón capacitivo retroiluminado."
+                descripcion: "El Vitro Touch combina vidrio templado y un diseño minimalista con un botón capacitivo retroiluminado.",
+                linea: "Línea Vanguardia Digital",
+                material: "Vidrio templado, poliestireno y acero",
+                techDescription: "Elegancia táctil y minimalismo puro. El Vitro Touch revoluciona tu cocina con una imponente superficie de vidrio templado negro absoluto y un botón capacitivo retroiluminado. Es una obra de arte funcional diseñada para quienes exigen máxima pureza sin comprometer el estilo.",
+                specs: [
+                    { key: "Dimensiones", val: "Altura 13 cm × Longitud 30 cm" },
+                    { key: "Peso Neto", val: "1075 gramos" },
+                    { key: "Colores Disponibles", val: "Blanco y Negro Absoluto" },
+                    { key: "Voltaje / Frecuencia", val: "110 – 125 V CA / 60 Hz" },
+                    { key: "Producción de Ozono", val: "35 mg/h" },
+                    { key: "Capacidad de Tratamiento", val: "150 Litros por hora (Lt/h)" },
+                    { key: "Presión Máxima de Agua", val: "100 psi" }
+                ]
             }
         ];
 
-        // Estado del carrito: almacena { [productId]: cantidad }
+        // Estado del carrito
         const cartState = {};
 
-        // Helper para parsear precio string a número
         function parsePrice(priceStr) {
             return parseInt(priceStr.replace(/[^0-9]/g, '')) || 0;
         }
 
-        // Helper para formatear número a moneda colombiana
         function formatCurrency(amount) {
             return '$' + amount.toLocaleString('es-CO');
         }
@@ -1190,6 +1311,7 @@
             }, 3000);
         }
 
+        // Renderizar Catálogo
         function renderCatalog() {
             const container = document.getElementById('catalogProductsContainer');
             container.innerHTML = '';
@@ -1226,17 +1348,41 @@
             });
         }
 
-        // Abrir visor de ficha técnica
+        // Abrir Modal de Ficha Técnica Dinámica (HTML en lugar de imagen)
         function openTechSheet(product) {
             const modalTech = document.getElementById('modalTechSheet');
-            const techImage = document.getElementById('techSheetImage');
             const techTitle = document.getElementById('techSheetTitle');
+            const techContent = document.getElementById('techSheetContent');
 
-            techImage.src = product.imagen;
             techTitle.innerHTML = `<i class="fa-solid fa-file-lines"></i> Ficha Técnica: ${product.nombre}`;
+
+            let specsRows = '';
+            product.specs.forEach(spec => {
+                specsRows += `
+                    <tr>
+                        <td class="tech-spec-key">${spec.key}</td>
+                        <td class="tech-spec-val">${spec.val}</td>
+                    </tr>
+                `;
+            });
+
+            techContent.innerHTML = `
+                <span class="tech-subtitle">${product.linea}</span>
+                <div class="tech-desc-box">
+                    "${product.techDescription}"
+                </div>
+                <div class="tech-specs-title">Especificaciones Técnicas</div>
+                <table class="tech-specs-table">
+                    <tbody>
+                        ${specsRows}
+                    </tbody>
+                </table>
+            `;
+
             modalTech.classList.add('active');
         }
 
+        // Renderizar Módulo de Pedidos
         function renderOrderModule() {
             const container = document.getElementById('orderProductsContainer');
             container.innerHTML = '';
@@ -1263,7 +1409,6 @@
             renderOrderSummary();
         }
 
-        // Actualizar cantidades del carrito
         window.updateQuantity = function(productId, change) {
             const current = cartState[productId] || 0;
             const updated = current + change;
@@ -1284,7 +1429,6 @@
             updateCartBadge();
         };
 
-        // Actualizar resumen y totales
         function renderOrderSummary() {
             const summaryBox = document.getElementById('orderSummaryBox');
             let rowsHtml = '';
@@ -1334,7 +1478,6 @@
             summaryBox.innerHTML = rowsHtml;
         }
 
-        // Actualizar badge del botón Hacer Pedido
         function updateCartBadge() {
             let totalUnits = 0;
             Object.values(cartState).forEach(qty => {
@@ -1358,7 +1501,7 @@
             renderCatalog();
             renderOrderModule();
 
-            // Referencias a modales
+            // Modales
             const modalQR = document.getElementById('modalQR');
             const modalCatalog = document.getElementById('modalCatalog');
             const modalTechSheet = document.getElementById('modalTechSheet');
@@ -1401,7 +1544,7 @@
                 document.body.classList.remove('modal-open');
             });
 
-            // Instalar Tarjeta Digital
+            // Instalar Tarjeta
             const btnInstallCard = document.getElementById('btnInstallCard');
             const closeModalInstall = document.getElementById('closeModalInstall');
 
@@ -1466,9 +1609,7 @@
                     return;
                 }
 
-                // Construir mensaje dinámico
                 let message = "Hola Ozonica, quiero realizar el siguiente pedido:\n\n🛒 PEDIDO OZONICA\n\n";
-                
                 let index = 1;
                 let totalPriceAmount = 0;
 
