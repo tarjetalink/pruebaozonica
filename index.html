@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -829,6 +830,67 @@
             background: var(--primary-blue);
         }
 
+        /* Modal Selección Asesor WhatsApp */
+        .whatsapp-advisor-intro {
+            text-align: center;
+            color: var(--text-dark);
+            margin-bottom: 16px;
+            font-size: 0.9rem;
+        }
+
+        .whatsapp-advisor-option {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            width: 100%;
+            background: var(--light-blue);
+            border: 1px solid var(--secondary-blue);
+            border-radius: 14px;
+            padding: 14px 16px;
+            margin-bottom: 12px;
+            cursor: pointer;
+            transition: transform 0.2s, background 0.2s;
+            text-align: left;
+        }
+
+        .whatsapp-advisor-option:last-child {
+            margin-bottom: 0;
+        }
+
+        .whatsapp-advisor-option:hover {
+            background: #d9edfb;
+            transform: translateY(-1px);
+        }
+
+        .whatsapp-advisor-icon {
+            width: 42px;
+            height: 42px;
+            min-width: 42px;
+            border-radius: 50%;
+            background: var(--whatsapp-green);
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+        }
+
+        .whatsapp-advisor-name {
+            font-weight: 700;
+            color: var(--primary-blue);
+            font-size: 0.95rem;
+        }
+
+        .whatsapp-advisor-cta {
+            font-size: 0.8rem;
+            color: var(--secondary-blue);
+        }
+
+        .whatsapp-advisor-number {
+            font-size: 0.8rem;
+            color: var(--text-dark);
+        }
+
         /* Estilos específicos para el Modal de Instalación */
         .install-modal-card {
             max-width: 440px;
@@ -975,7 +1037,7 @@
                     <i class="fa-solid fa-globe"></i>
                     <span>SITIO WEB</span>
                 </a>
-                <a href="https://wa.me/573185646939?text=Hola%20Ozonica,%20me%20comunico%20para%20solicitar%20más%20información" target="_blank" rel="noopener" class="secondary-btn whatsapp-btn" id="btnWhatsapp">
+                <a href="#" class="secondary-btn whatsapp-btn" id="btnWhatsapp">
                     <i class="fa-brands fa-whatsapp"></i>
                     <span>WHATSAPP</span>
                 </a>
@@ -1159,6 +1221,33 @@
         </div>
     </div>
 
+    <!-- Modal Selección Asesor WhatsApp -->
+    <div class="modal-overlay" id="modalWhatsapp">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3 class="modal-title"><i class="fa-brands fa-whatsapp"></i> CONTÁCTANOS POR WHATSAPP</h3>
+                <button class="modal-close" id="closeModalWhatsapp"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body">
+                <p class="whatsapp-advisor-intro">Selecciona el asesor con quien deseas comunicarte</p>
+                <button class="whatsapp-advisor-option" id="btnWhatsappAsesor1">
+                    <span class="whatsapp-advisor-icon"><i class="fa-brands fa-whatsapp"></i></span>
+                    <span>
+                        <span class="whatsapp-advisor-name" id="asesorWhatsapp1Nombre"></span><br>
+                        <span class="whatsapp-advisor-cta">Contactar por WhatsApp</span>
+                    </span>
+                </button>
+                <button class="whatsapp-advisor-option" id="btnWhatsappAsesor2">
+                    <span class="whatsapp-advisor-icon"><i class="fa-brands fa-whatsapp"></i></span>
+                    <span>
+                        <span class="whatsapp-advisor-name" id="asesorWhatsapp2Nombre"></span><br>
+                        <span class="whatsapp-advisor-cta">Contactar por WhatsApp</span>
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+
     <!-- Toast de Notificación -->
     <div class="toast" id="toastMessage">
         <i class="fa-solid fa-circle-check"></i> <span id="toastText">Acción realizada</span>
@@ -1173,7 +1262,19 @@
             whatsappMensaje: "Hola Ozonica, me comunico para solicitar más información",
             sitioWeb: "https://www.ozonicadecolombia.com/",
             banner: "https://i.postimg.cc/TYS2G6mb/Whats-App-Image-2026-08-06-at-8-54-52-PM.jpg",
-            fotoPerfil: "https://i.postimg.cc/GpJPyzx0/ozonica-logo.png"
+            fotoPerfil: "https://i.postimg.cc/GpJPyzx0/ozonica-logo.png",
+            asesorWhatsapp1: {
+                nombre: "Asesor 1",
+                numero: "573185646939",
+                numeroDisplay: "318 564 6939",
+                mensaje: "Hola Ozonica, me comunico para solicitar más información"
+            },
+            asesorWhatsapp2: {
+                nombre: "Asesor 2",
+                numero: "573194505632",
+                numeroDisplay: "319 450 5632",
+                mensaje: "Hola Ozonica, me comunico para solicitar más información"
+            }
         };
 
         // ÚNICA FUENTE DE PRODUCTOS (IDs estrictamente 1 al 6 en orden exacto)
@@ -1507,6 +1608,7 @@
             const modalTechSheet = document.getElementById('modalTechSheet');
             const modalOrder = document.getElementById('modalOrder');
             const modalInstall = document.getElementById('modalInstall');
+            const modalWhatsapp = document.getElementById('modalWhatsapp');
 
             // QR
             document.getElementById('btnShareQR').addEventListener('click', () => {
@@ -1565,6 +1667,34 @@
                     }
                 });
             }
+
+            // WhatsApp (selección de asesor)
+            document.getElementById('asesorWhatsapp1Nombre').textContent = CONFIG.asesorWhatsapp1.nombre;
+            document.getElementById('asesorWhatsapp2Nombre').textContent = CONFIG.asesorWhatsapp2.nombre;
+
+            document.getElementById('btnWhatsapp').addEventListener('click', (e) => {
+                e.preventDefault();
+                modalWhatsapp.classList.add('active');
+                document.body.classList.add('modal-open');
+            });
+            document.getElementById('closeModalWhatsapp').addEventListener('click', () => {
+                modalWhatsapp.classList.remove('active');
+                document.body.classList.remove('modal-open');
+            });
+
+            function abrirWhatsappAsesor(asesor) {
+                const whatsappUrl = `https://wa.me/${asesor.numero}?text=${encodeURIComponent(asesor.mensaje)}`;
+                window.open(whatsappUrl, '_blank');
+                modalWhatsapp.classList.remove('active');
+                document.body.classList.remove('modal-open');
+            }
+
+            document.getElementById('btnWhatsappAsesor1').addEventListener('click', () => {
+                abrirWhatsappAsesor(CONFIG.asesorWhatsapp1);
+            });
+            document.getElementById('btnWhatsappAsesor2').addEventListener('click', () => {
+                abrirWhatsappAsesor(CONFIG.asesorWhatsapp2);
+            });
 
             // Vaciar Pedido
             document.getElementById('btnEmptyCart').addEventListener('click', () => {
@@ -1668,6 +1798,10 @@
                 }
                 if (e.target === modalInstall) {
                     modalInstall.classList.remove('active');
+                    document.body.classList.remove('modal-open');
+                }
+                if (e.target === modalWhatsapp) {
+                    modalWhatsapp.classList.remove('active');
                     document.body.classList.remove('modal-open');
                 }
             });
