@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -1234,6 +1233,7 @@
                     <span class="whatsapp-advisor-icon"><i class="fa-brands fa-whatsapp"></i></span>
                     <span>
                         <span class="whatsapp-advisor-name" id="asesorWhatsapp1Nombre"></span><br>
+                        <small class="whatsapp-advisor-number" id="asesorWhatsapp1Numero"></small><br>
                         <span class="whatsapp-advisor-cta">Contactar por WhatsApp</span>
                     </span>
                 </button>
@@ -1241,6 +1241,7 @@
                     <span class="whatsapp-advisor-icon"><i class="fa-brands fa-whatsapp"></i></span>
                     <span>
                         <span class="whatsapp-advisor-name" id="asesorWhatsapp2Nombre"></span><br>
+                        <small class="whatsapp-advisor-number" id="asesorWhatsapp2Numero"></small><br>
                         <span class="whatsapp-advisor-cta">Contactar por WhatsApp</span>
                     </span>
                 </button>
@@ -1670,7 +1671,9 @@
 
             // WhatsApp (selección de asesor)
             document.getElementById('asesorWhatsapp1Nombre').textContent = CONFIG.asesorWhatsapp1.nombre;
+            document.getElementById('asesorWhatsapp1Numero').textContent = CONFIG.asesorWhatsapp1.numeroDisplay;
             document.getElementById('asesorWhatsapp2Nombre').textContent = CONFIG.asesorWhatsapp2.nombre;
+            document.getElementById('asesorWhatsapp2Numero').textContent = CONFIG.asesorWhatsapp2.numeroDisplay;
 
             document.getElementById('btnWhatsapp').addEventListener('click', (e) => {
                 e.preventDefault();
